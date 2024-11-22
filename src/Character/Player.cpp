@@ -26,3 +26,7 @@ int Player::attack() const {
     std::cout << (*this).name << " attacks with " << (*this).attackPower << " attack power!" << std::endl;
     return attackPower;  // Return the attack power (int)
 }
+
+void Player::performSpecialAttack() const {
+    specialAttack.SpAttack();  // Call the SpAttack method of SpecialAttack
+}

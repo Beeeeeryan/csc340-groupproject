@@ -10,6 +10,7 @@ public:
     Player(std::string name, int health, int attackPower, int positionX, int positionY);
     int attack() const override;  // Override the attack function from Character
     SpecialAttack specialAttack;  // Composition - Player has a SpecialAttack object
+    void performSpecialAttack() const;  // Communicate with the SpecialAttack object
 };
 
 #endif

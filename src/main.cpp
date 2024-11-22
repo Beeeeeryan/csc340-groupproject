@@ -29,7 +29,7 @@ int main() {
     cout << player1.getName() << " has " << player1.getAttackPower() << " attack power!" << endl;
     player1.attack();
     cout << player1.getName() << " has a special attack power of " << player1.specialAttack.getAttackPower() << endl;
-    player1.specialAttack.SpAttack(); // Access the special attack method from the SpecialAttack class
+    player1.performSpecialAttack(); // Access the special attack method from the SpecialAttack class
     cout << player1.getName() << " is positioned at (" << pos2.x << ", " << pos2.y << ")" << endl;
     cout << endl;
 
