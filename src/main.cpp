@@ -18,6 +18,7 @@ int main() {
     cout << "Is "<< player.getName() << " alive? " << (player.isAlive() ? "Yes" : "No") << endl;
     cout << player.getName() << " has " << player.getHealth() << " health!" << endl;
     cout << "You have " << player.getAttackPower() << " attack power!" << endl;
+    player.attack();
     cout << player.getName() << " is positioned at (" << pos.x << ", " << pos.y << ")" << endl;
     cout << endl;
 
@@ -26,6 +27,7 @@ int main() {
     cout << "Is "<< player1.getName() << " alive? " << (player1.isAlive() ? "Yes" : "No") << endl;
     cout << player1.getName() << " has " << player1.getHealth() << " health!" << endl;
     cout << "You have " << player1.getAttackPower() << " attack power!" << endl;
+    player1.attack();
     cout << player1.getName() << " is positioned at (" << pos2.x << ", " << pos2.y << ")" << endl;
     cout << endl;
 
@@ -34,6 +36,7 @@ int main() {
     cout << "Is "<< enemy.getName() << " alive? " << (enemy.isAlive() ? "Yes" : "No") << endl;
     cout << enemy.getName() << " has " << enemy.getHealth() << " health!" << endl;
     cout << "You have " << enemy.getAttackPower() << " attack power!" << endl;
+    enemy.attack();
     cout << enemy.getName() << " is positioned at (" << pos3.x << ", " << pos3.y << ")" << endl;
 
 

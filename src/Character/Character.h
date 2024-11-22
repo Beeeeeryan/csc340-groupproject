@@ -2,7 +2,8 @@
 
 #ifndef CHARACTER_H
 #define CHARACTER_H
-
+#include <iostream>
+#include <string>
 #include <string>
 
 struct Position {  // Struct to represent (x, y) coordinates
@@ -26,6 +27,7 @@ class Character {
         int getAttackPower() const;
         Position getPosition() const;  // Use Position struct instead of std::pair
         int getHealth() const;
+        virtual void attack() const; // Polymorphism - virtual function
 };
 
 #endif

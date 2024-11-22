@@ -8,7 +8,8 @@ class Player: public Character {
         
         Player();   // Default Constructor
                     // calls the default constructor of Character.h
-                    
         Player(std::string name, int health, int attackPower, int positionX, int positionY);
+        void attack() const override;   // Polymorphism - override the attack function from the Character class.
+
 };
 #endif
