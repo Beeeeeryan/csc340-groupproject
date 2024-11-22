@@ -12,8 +12,14 @@ class Character {
         int positionY;
     public:
         Character();
+        Character(std::string name, int health, int attackPower, int positionX, int positionY);
         void move(int x, int y);
         bool isAlive() const;
+        std::string getName() const;
+        int getAttackPower() const;
+
+
+
 
 }; 
 #endif

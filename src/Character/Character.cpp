@@ -1,12 +1,20 @@
 #include "Character.h"
 
-// Default Constructor
-Character::Character():
-    name("Player"), 
+
+Character::Character(): // Default Constructor
+    name("Character"), 
     health(100), 
     attackPower(10), 
     positionX(0), 
     positionY(0) 
+{}
+
+Character::Character(std::string name, int health, int attackPower, int positionX, int positionY): 
+    name(name), 
+    health(health), 
+    attackPower(attackPower), 
+    positionX(positionX), 
+    positionY(positionY) 
 {}
 
 void Character::move(int x, int y) {
@@ -17,3 +25,13 @@ void Character::move(int x, int y) {
 bool Character::isAlive() const {
     return health > 0;
 }
+
+std::string Character::getName() const {
+    return name;
+}
+
+int Character::getAttackPower() const {
+    return attackPower;
+}
+
+
