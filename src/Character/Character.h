@@ -17,6 +17,7 @@ class Character {
         int attackPower;
         int positionX;
         int positionY;
+
     public:
         Character();
         Character(std::string name, int health, int attackPower, int positionX, int positionY);
@@ -26,7 +27,8 @@ class Character {
         int getAttackPower() const;
         Position getPosition() const;  // Use Position struct instead of std::pair
         int getHealth() const;
-        virtual void attack() const; // Polymorphism - virtual function
+        virtual int attack() const; // Polymorphism - virtual function
 };
 
 #endif
+

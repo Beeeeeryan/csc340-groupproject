@@ -16,7 +16,7 @@ Enemy::Enemy(std::string name, int health, int attackPower, int positionX, int p
     : Character(name, health, attackPower, positionX, positionY) {
 }
 
-void Enemy::attack() const {
-    // We use (*this) to access the object's members when the function is marked as const because this is treated as a pointer to a constant object.
+int Enemy::attack() const { // Polymorphism - override the attack function from the Character class.
     std::cout << (*this).name << " attacks with " << (*this).attackPower << " attack power!" << std::endl;
+    return attackPower; 
 }

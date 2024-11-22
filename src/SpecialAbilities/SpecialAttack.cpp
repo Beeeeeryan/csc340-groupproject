@@ -2,12 +2,16 @@
 
 #include "SpecialAttack.h"
 
-// Constructor definition
-SpecialAttack::SpecialAttack() {
-    std::cout << "SpecialAttack created!" << std::endl;
+// Constructor that takes attack power as a parameter
+// Triples the attack power and makes it the special attack power.
+SpecialAttack::SpecialAttack(int attackPower) : 
+    attackPower(attackPower*3) 
+{}
+
+void SpecialAttack::SpAttack() const {
+    std::cout << "Special attack performed with " << attackPower << " attack power!" << std::endl;
 }
 
-// Method definition for SpAttack
-void SpecialAttack::SpAttack() const {
-    std::cout << "Special attack performed with enhanced power!" << std::endl;
+int SpecialAttack::getAttackPower() const {
+    return attackPower;
 }

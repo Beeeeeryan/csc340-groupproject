@@ -4,7 +4,7 @@
 
 
 Character::Character(): // Default Constructor
-    name("Character"), 
+    name("Default Character"), 
     health(100), 
     attackPower(10), 
     positionX(0), 
@@ -44,7 +44,7 @@ int Character::getHealth() const {
     return health;
 }
 
-void Character::attack() const {
-    // We use (*this) to access the object's members when the function is marked as const because this is treated as a pointer to a constant object.
-    std::cout << (*this).name << " attacks with " << (*this).attackPower << " attack power!" << std::endl;
+int Character::attack() const {
+    std::cout << name << " attacks with " << attackPower << " attack power!" << std::endl;
+    return attackPower; 
 }

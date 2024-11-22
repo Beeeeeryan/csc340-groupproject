@@ -6,10 +6,13 @@
 #include <iostream>
 
 class SpecialAttack {
-public:
-    SpecialAttack();  
+private:
+    int attackPower;  // Store the attack power passed from Player
 
-    void SpAttack() const;  
+public:
+    SpecialAttack(int attackPower);  // Constructor accepts attackPower
+    void SpAttack() const;  // Perform the special attack (tripling the power)
+    int getAttackPower() const; // Getter for attackPower
 };
 
 #endif 
