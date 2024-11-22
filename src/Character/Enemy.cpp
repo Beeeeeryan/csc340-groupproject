@@ -12,9 +12,14 @@ Enemy::Enemy()
 }
 
 // Inherits from Character and initializes base class attributes (name, health, attackPower, positionX, positionY)
-Enemy::Enemy(std::string name, int health, int attackPower, int positionX, int positionY)
-    : Character(name, health, attackPower, positionX, positionY) {
-}
+Enemy::Enemy(std::string name, int health, int attackPower, int positionX, int positionY): 
+    Character(
+        name, 
+        health, 
+        attackPower, 
+        positionX, 
+        positionY) 
+{}
 
 int Enemy::attack() const { // Polymorphism - override the attack function from the Character class.
     std::cout << (*this).name << " attacks with " << (*this).attackPower << " attack power!" << std::endl;

@@ -13,8 +13,8 @@ Player::Player()
 }
 
 // Inherits from Character and initializes base class attributes (name, health, attackPower, positionX, positionY)
-Player::Player(std::string name, int health, int attackPower, int positionX, int positionY)
-    : Character(
+Player::Player(std::string name, int health, int attackPower, int positionX, int positionY): 
+    Character(
         name, 
         health, 
         attackPower, 
