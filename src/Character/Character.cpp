@@ -1,3 +1,5 @@
+// Character.cpp - Implementation of the abstract base class
+
 #include "Character.h"
 
 
@@ -38,4 +40,7 @@ Position Character::getPosition() const {
     return {positionX, positionY};  // Return position as a Position struct
 }
 
+int Character::getHealth() const {
+    return health;
+}
 

@@ -4,6 +4,11 @@
 // Calls the default constructor of Character.h
 Enemy::Enemy()
     : Character() {  
+        name = "Enemy";
+        // set default position to top right coner of 3x3 grid.
+        positionX = 2;
+        positionY = 2;
+        health = 200;
 }
 
 // Inherits from Character and initializes base class attributes (name, health, attackPower, positionX, positionY)

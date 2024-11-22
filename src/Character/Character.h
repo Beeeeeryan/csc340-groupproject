@@ -1,3 +1,5 @@
+// Character.h - Abstract base class
+
 #ifndef CHARACTER_H
 #define CHARACTER_H
 
@@ -23,6 +25,7 @@ class Character {
         std::string getName() const;
         int getAttackPower() const;
         Position getPosition() const;  // Use Position struct instead of std::pair
+        int getHealth() const;
 };
 
 #endif

@@ -2,8 +2,13 @@
 
 // Default Constructor
 // Calls the default constructor of Character.h
+
 Player::Player()
     : Character() {  
+        name = "Player";
+
+        positionX = 0;      // set position to bottom left corner of 3x3 grid.
+        positionY = 0;
 }
 
 // Inherits from Character and initializes base class attributes (name, health, attackPower, positionX, positionY)
