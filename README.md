@@ -53,5 +53,3 @@ Steps to Run the Program in VS Code:
      2. Ensure all `.cpp` and `.h` files are included and saved properly.
 
 ---
-
-You can paste this text wherever you need it without the comment marks! 😊
