@@ -4,7 +4,6 @@
 #define CHARACTER_H
 #include <iostream>
 #include <string>
-#include <string>
 
 struct Position {  // Struct to represent (x, y) coordinates
     int x;

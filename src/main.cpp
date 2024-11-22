@@ -28,6 +28,7 @@ int main() {
     cout << player1.getName() << " has " << player1.getHealth() << " health!" << endl;
     cout << "You have " << player1.getAttackPower() << " attack power!" << endl;
     player1.attack();
+    player1.specialAttack.SpAttack(); // Access the special attack method from the SpecialAttack class
     cout << player1.getName() << " is positioned at (" << pos2.x << ", " << pos2.y << ")" << endl;
     cout << endl;
 
