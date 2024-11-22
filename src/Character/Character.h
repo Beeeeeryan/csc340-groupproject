@@ -3,6 +3,11 @@
 
 #include <string>
 
+struct Position {  // Struct to represent (x, y) coordinates
+    int x;
+    int y;
+};
+
 class Character {
     protected:
         std::string name; 
@@ -17,9 +22,7 @@ class Character {
         bool isAlive() const;
         std::string getName() const;
         int getAttackPower() const;
+        Position getPosition() const;  // Use Position struct instead of std::pair
+};
 
-
-
-
-}; 
 #endif

@@ -34,4 +34,8 @@ int Character::getAttackPower() const {
     return attackPower;
 }
 
+Position Character::getPosition() const {
+    return {positionX, positionY};  // Return position as a Position struct
+}
+
 
