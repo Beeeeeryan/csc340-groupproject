@@ -1,28 +1,38 @@
 // Character.cpp - Implementation of the abstract base class
 
 #include "Character.h"
+#include "../Map/Grid.h"
 
-
-Character::Character(): // Default Constructor
-    name("Default Character"), 
-    health(100), 
-    attackPower(10), 
-    positionX(0), 
-    positionY(0) 
+Character::Character(Grid& grid)
+    : name("Default Character"), 
+      health(100), 
+      attackPower(10), 
+      positionX(0), 
+      positionY(0),
+      grid(grid)  // Initialize the reference member
 {}
 
-Character::Character(std::string name, int health, int attackPower, int positionX, int positionY): 
-    name(name), 
-    health(health), 
-    attackPower(attackPower), 
-    positionX(positionX), 
-    positionY(positionY) 
+Character::Character(std::string name, int health, int attackPower, int positionX, int positionY, Grid& grid)
+    : name(name), 
+      health(health), 
+      attackPower(attackPower), 
+      positionX(positionX), 
+      positionY(positionY),
+      grid(grid)  // Initialize the reference member
 {}
 
-void Character::move(int x, int y) {
-    positionX += x;
-    positionY += y;
-}
+
+// void Character::move(int x, int y) {
+//     positionX += x;
+//     positionY += y;
+//     if (grid.isValidPosition(positionX, positionY)) {
+//         std::cout << name << " moved to (" << positionX << ", " << positionY << ")" << std::endl;
+//     } else {
+//         std::cout << name << " cannot move to (" << positionX << ", " << positionY << ") - out of bounds!" << std::endl;
+//         positionX -= x;
+//         positionY -= y;
+//     }
+// }
 
 bool Character::isAlive() const {
     return health > 0;

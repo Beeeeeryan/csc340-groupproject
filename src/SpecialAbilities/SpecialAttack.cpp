@@ -8,10 +8,6 @@ SpecialAttack::SpecialAttack(int attackPower) :
     attackPower(attackPower*3) 
 {}
 
-void SpecialAttack::SpAttack() const {
-    std::cout << "Special attack performed with " << attackPower << " attack power!" << std::endl;
-}
-
-int SpecialAttack::getAttackPower() const {
-    return (*this).attackPower;
+int SpecialAttack::getSpAttackPower() const {
+    return attackPower;
 }
