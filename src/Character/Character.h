@@ -4,7 +4,7 @@
 #define CHARACTER_H
 #include <iostream>
 #include <string>
-#include "Grid.h"  // Include Grid class for composition
+#include "../Map/Grid.h"  // Include Grid class for composition
 
 struct Position {
     int x;
