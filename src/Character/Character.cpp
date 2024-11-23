@@ -1,7 +1,7 @@
 // Character.cpp - Implementation of the abstract base class
 
 #include "Character.h"
-#include "../Map/Grid.h"
+#include "Grid.h"
 
 Character::Character(Grid& grid)
     : name("Default Character"), 
