@@ -35,17 +35,19 @@
 # Steps to Run the Program in VS Code:
 
 1. Install Dependencies (If Applicable):
-    - Before you can run the program, ensure the following dependencies are installed:
-    - **C++ Compiler (g++):** Make sure you have a C++ compiler installed. 
 
-    - **VS Code Extensions:** Ensure you have the C++ extension installed in VS Code. You can find it in the VS extentions by searching for C/C++.
-    
-    
-    **On Ubuntu**, you can install it with:
-    ```
-    sudo apt update
-    sudo apt install g++
-    ```
+    - Before you can run the program, ensure the following dependencies are installed:
+        - **C++ Compiler (g++):** 
+            - To install the C++ compiler, open your terminal and run the following commands:
+                ```
+                    sudo apt update
+                    sudo apt install g++
+                ```
+
+        - **VS Code Extensions:** 
+            - You can find it in the VS extentions by searching for C/C++.
+        
+---
 
 2. Create `tasks.json` and paste the following:
 
@@ -107,7 +109,7 @@
     "version": 4
     }
     ```
-
+---
 
 4. Build the Program:
    - Press `Ctrl+Shift+B` in VS Code or go to **Terminal > Run Build Task**.
