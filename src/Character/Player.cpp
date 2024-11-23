@@ -22,9 +22,7 @@ Player::Player(std::string name, int health, int attackPower, int positionX, int
     grid.setPlayerPosition(positionX, positionY);  // Set initial position on the grid
 }
 
-
 int Player::attack() const {
-    std::cout << (*this).name << " attacks with " << (*this).attackPower << " attack power!" << std::endl;
     return attackPower;  // Return the attack power (int)
 }
 
