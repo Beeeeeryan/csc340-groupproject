@@ -1,11 +1,9 @@
 // Player.cpp
 
 #include "Player.h"
-#include "../Map/Grid.h"                        // Include Grid class
+#include "../Map/Grid.h"  // Include Grid class
 
 // Default Constructor
-// Calls the default constructor of Character.h
-
 Player::Player(Grid& grid)
     : Character(grid),
       specialAttack(0)
@@ -13,13 +11,17 @@ Player::Player(Grid& grid)
     name = "Player";
     positionX = 0;
     positionY = 0;
+    grid.setPlayerPosition(positionX, positionY);  // Set initial position on the grid
 }
 
-// Inherits from Character and initializes base class attributes (name, health, attackPower, positionX, positionY)
+// Parameterized Constructor
 Player::Player(std::string name, int health, int attackPower, int positionX, int positionY, Grid& grid)
     : Character(name, health, attackPower, positionX, positionY, grid),
       specialAttack(attackPower)
-{}
+{
+    grid.setPlayerPosition(positionX, positionY);  // Set initial position on the grid
+}
+
 
 int Player::attack() const {
     std::cout << (*this).name << " attacks with " << (*this).attackPower << " attack power!" << std::endl;

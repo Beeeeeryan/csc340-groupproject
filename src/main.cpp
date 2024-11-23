@@ -8,7 +8,7 @@ using namespace std;
 
 int main() {
     Grid grid;
-    Player player1("John Smith", 100, 10, 2, 1, grid);
+    Player player1("John Smith", 100, 10, 3, 0, grid);
     Enemy enemy("Goblin", 50, 5, 0, 3, grid);
 
     // Display the initial grid
