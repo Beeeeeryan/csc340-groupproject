@@ -7,11 +7,11 @@
 
 class SpecialAttack {
 private:
-    int attackPower;  // Store the attack power passed from Player
+    int attackPower;                    // Store the attack power passed from Player
 
 public:
-    SpecialAttack(int attackPower);  // Constructor accepts attackPower
-    int getSpAttackPower() const; // Getter for attackPower
+    SpecialAttack(int attackPower);     // Constructor accepts attackPower
+    int getSpAttackPower() const;       // Getter for attackPower
 };
 
 #endif 
