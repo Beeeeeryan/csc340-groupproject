@@ -2,36 +2,47 @@
 
 #include "Enemy.h"
 
-// Default Constructor
-// Calls the default constructor of Character.h
-Enemy::Enemy()
-    : Character() {  
-        name = "Enemy";
-        // set default position to top right coner of 3x3 grid.
-        positionX = 2;
-        positionY = 2;
-        health = 200;
+Enemy::Enemy(Grid& grid)
+    : Character(grid)
+{
+    name = "Enemy";
+    positionX = 2;
+    positionY = 2;
+    health = 200;
+    grid.setEnemyPosition(positionX, positionY);  // Set initial position on the grid
 }
 
-// Inherits from Character and initializes base class attributes (name, health, attackPower, positionX, positionY)
-Enemy::Enemy(std::string name, int health, int attackPower, int positionX, int positionY): 
-    Character(
-        name, 
-        health, 
-        attackPower, 
-        positionX, 
-        positionY) 
-{}
+Enemy::Enemy(std::string name, int health, int attackPower, int positionX, int positionY, Grid& grid)
+    : Character(name, health, attackPower, positionX, positionY, grid)
+{
+    grid.setEnemyPosition(positionX, positionY);  // Set initial position on the grid
+}
 
-int Enemy::attack() const { // Polymorphism - override the attack function from the Character class.
-    std::cout << (*this).name << " attacks with " << (*this).attackPower << " attack power!" << std::endl;
+int Enemy::attack() const {
+    std::cout << name << " attacks with " << attackPower << " attack power!" << std::endl;
     return attackPower; 
 }
 
-int Enemy::takeDamage(int damage) { // Polymorphism - override the takeDamage function from the Character class.
+int Enemy::takeDamage(int damage) {
     health -= damage;
     if (health < 0) {
         health = 0;
     }
     return health;
+}
+
+void Enemy::move(int x, int y) {
+    grid.clearPosition(positionX, positionY);
+
+    int newX = positionX + x;
+    int newY = positionY + y;
+
+    if (grid.isValidPosition(newX, newY)) {
+        positionX = newX;
+        positionY = newY;
+    } else {
+        std::cout << name << " cannot move to (" << newX << ", " << newY << ") - out of bounds!" << std::endl;
+    }
+
+    grid.setEnemyPosition(positionX, positionY);
 }
