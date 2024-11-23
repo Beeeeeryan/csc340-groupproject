@@ -11,6 +11,20 @@ enum Actions {
     START_GAME = 1,
     UNIT_TEST = 2,
 };
+
+enum Movement {
+    UP = 1,
+    DOWN = 2,
+    LEFT = 3,
+    RIGHT = 4,
+};
+
+enum Options {
+    BACK = 0,
+    ATTACK = 1,
+    SPECIAL_ATTACK = 2,
+};
+
 const int min_menu_option = 1;
 const int max_menu_option = 2;
 
@@ -37,8 +51,11 @@ int getMenuChoice() {
 
 void unitTest() {
     Grid grid;
-    Player player1("John Smith", 100, 10, 3, 0, grid);
-    Enemy enemy("Goblin", 50, 5, 0, 3, grid);
+    string playerName = "Player";
+    string enemyName = "Enemy";
+
+    Player player1(playerName, 100, 10, 3, 0, grid);
+    Enemy enemy(enemyName, 50, 5, 0, 3, grid);
 
  
     // Display player and enemy details
@@ -87,6 +104,77 @@ void unitTest() {
     cout << endl;
 }
 
+int choiceAfterStartGame() {
+    int userInput;
+    
+    cout << "Attack or Special Attack?" << endl;
+    cout << "(" << ATTACK << ")" << " ATTACK" << endl;
+    cout << "(" << SPECIAL_ATTACK << ")" << " SPECIAL ATTACK" << endl;
+
+
+    cin >> userInput; 
+
+    if (userInput < 1|| userInput > 2) {
+        cout << "Error! Input must be a number between " << 1 << " and " << 2
+             << " ,or " << 0 << " to exit." << endl;
+        return choiceAfterStartGame(); 
+    }
+   
+    return userInput;
+}
+
+void startGame() {
+    int choice;
+    Grid grid;
+    string playerName = "Player";
+    string enemyName = "Enemy";
+    Player player(playerName, 100, 10, 3, 0, grid);
+    Enemy enemy(enemyName, 50, 5, 0, 3, grid);
+    grid.displayGrid();
+    cout << "--------------------------------------------" << endl;
+    cout << "Player health: " << player.getHealth() << endl;
+    cout << "Enemy health: " << enemy.getHealth() << endl;
+    choice = choiceAfterStartGame();
+    cout << "--------------------------------------------" << endl;
+
+    do {
+        if (choice == ATTACK) {
+            player.attack();
+            enemy.takeDamage(player.attack());
+            cout << playerName << " attacks with " << player.getAttackPower() << " attack power!" << endl;
+            cout << "Enemy health: " << enemy.getHealth() << endl;
+            if (enemy.getHealth() == 0) {
+                cout << "Enemy defeated!" << endl;
+                break;
+            }
+            enemy.attack();
+            player.takeDamage(enemy.attack());
+            cout << "Player health: " << player.getHealth() << endl;
+            if (player.getHealth() == 0) {
+                cout << "Player defeated!" << endl;
+                break;
+            }
+        } else {
+            int specialDamage = player.getSpAttackPower();
+            cout << playerName << " attacks with " << specialDamage << " special attack power!" << endl;
+            enemy.takeDamage(specialDamage);
+            cout << "Enemy health: " << enemy.getHealth() << endl;
+            if (enemy.getHealth() == 0) {
+                cout << "Enemy defeated!" << endl;
+                break;
+            }
+            enemy.attack();
+            player.takeDamage(enemy.attack());
+            cout << "Player health: " << player.getHealth() << endl;
+            if (player.getHealth() == 0) {
+                cout << "Player defeated!" << endl;
+                break;
+            }
+        } 
+        choice = choiceAfterStartGame();
+    } while (choice != QUIT);
+}
+
 int main() {
     int choice;
 
@@ -94,10 +182,11 @@ int main() {
         choice = getMenuChoice();
         switch (choice) {
             case START_GAME:
-                cout << "Starting the game..." << endl;
+                startGame();
+                
                 break;
             case UNIT_TEST:
-                cout << "Running unit tests..." << endl;
+
                 cout << endl;
                 unitTest();
                 break;

@@ -19,7 +19,6 @@ Enemy::Enemy(std::string name, int health, int attackPower, int positionX, int p
 }
 
 int Enemy::attack() const {
-    std::cout << name << " attacks with " << attackPower << " attack power!" << std::endl;
     return attackPower; 
 }
 
