@@ -141,7 +141,7 @@ void startGame() {
         if (choice == ATTACK) {
             player.attack();
             enemy.takeDamage(player.attack());
-            cout << playerName << " attacks with " << player.getAttackPower() << " attack power!" << endl;
+            cout << player.getName() << " attacks with " << player.getAttackPower() << " attack power!" << endl;
             cout << "Enemy health: " << enemy.getHealth() << endl;
             if (enemy.getHealth() == 0) {
                 cout << "Enemy defeated!" << endl;
@@ -149,6 +149,7 @@ void startGame() {
             }
             enemy.attack();
             player.takeDamage(enemy.attack());
+            cout << enemy.getName() << " attacks with " << enemy.getAttackPower() << " attack power!" << endl;
             cout << "Player health: " << player.getHealth() << endl;
             if (player.getHealth() == 0) {
                 cout << "Player defeated!" << endl;
@@ -156,7 +157,7 @@ void startGame() {
             }
         } else {
             int specialDamage = player.getSpAttackPower();
-            cout << playerName << " attacks with " << specialDamage << " special attack power!" << endl;
+            cout << player.getName() << " attacks with " << specialDamage << " special attack power!" << endl;
             enemy.takeDamage(specialDamage);
             cout << "Enemy health: " << enemy.getHealth() << endl;
             if (enemy.getHealth() == 0) {
@@ -165,6 +166,7 @@ void startGame() {
             }
             enemy.attack();
             player.takeDamage(enemy.attack());
+            cout << enemy.getName() << " attacks with " << enemy.getAttackPower() << " attack power!" << endl;
             cout << "Player health: " << player.getHealth() << endl;
             if (player.getHealth() == 0) {
                 cout << "Player defeated!" << endl;
@@ -183,10 +185,8 @@ int main() {
         switch (choice) {
             case START_GAME:
                 startGame();
-                
                 break;
             case UNIT_TEST:
-
                 cout << endl;
                 unitTest();
                 break;

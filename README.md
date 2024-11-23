@@ -34,7 +34,7 @@
 
 ---
 
-# Steps to Run the Program in VS Code:
+# Steps to Run the Program in VS Code
 
 1. Install Dependencies (If Applicable):
 
@@ -180,3 +180,38 @@
      ```bash
      ./main
      ```
+     
+---
+
+### Important Code
+
+- **Objects**
+    - Creating `Default_player` and `Default_enemy` Objects:
+    - `Default_player` and `Default_enemy` are both being created with various attributes (name, health, attack power, etc.) and a reference to the `Grid` object. The player has coordinates (`X_position`, `Y_position`) for their location in the grid.
+    ```cpp
+    Player Default_player(name, health, attackPower, X_position, Y_position, grid);
+    Enemy Default_enemy(enemyName, 50, 5, 0, 3, grid);
+    ```
+
+- **Calling Object Functions**
+    - Each of these functions performs a specific task related to the `Default_player` and `Default_enemy` objects, such as performing an attack, checking health, applying damage, moving the player, or checking if the player is still alive.
+    ```cpp
+    Default_player.attack();               // Returns int value of player's attack value.
+    Default_player.getHealth();            // Returns int value of player's health.
+    Default_player.takeDamage(parameter);  // Subtracts from player object's health.
+    Default_player.getSpAttackPower();     // Returns int value of player's special attack power.
+    Default_player.move(X, Y);             // Moves the player's position on the grid.
+    Default_player.isAlive();              // Checks if player's health is 0 or not. Currently returns 1 or 0.
+    ```
+
+    ```cpp
+    Default_enemy.attack();                // Returns int value of enemy's attack value.
+    Default_enemy.getHealth();             // Returns int value of enemy's health.
+    Default_enemy.takeDamage(parameter);   // Subtracts from enemy's health.
+    Default_enemy.getSpAttackPower();      // Returns int value of enemy's special attack power.
+    Default_enemy.move(X, Y);              // Moves the enemy's position on the grid.
+    Default_enemy.isAlive();               // Checks if enemy's health is 0 or not. Currently returns 1 or 0.
+    ```
+
+
+
