@@ -201,16 +201,17 @@
     Default_player.takeDamage(parameter);  // Subtracts from player object's health.
     Default_player.getSpAttackPower();     // Returns int value of player's special attack power.
     Default_player.move(X, Y);             // Moves the player's position on the grid.
-    Default_player.isAlive();              // Checks if player's health is 0 or not. Currently returns 1 or 0.
+    Default_player.isAlive();              // Checks if player's health is 0 or not.
+                                           // Currently returns 1 or 0.
     ```
 
     ```cpp
     Default_enemy.attack();                // Returns int value of enemy's attack value.
     Default_enemy.getHealth();             // Returns int value of enemy's health.
     Default_enemy.takeDamage(parameter);   // Subtracts from enemy's health.
-    Default_enemy.getSpAttackPower();      // Returns int value of enemy's special attack power.
     Default_enemy.move(X, Y);              // Moves the enemy's position on the grid.
-    Default_enemy.isAlive();               // Checks if enemy's health is 0 or not. Currently returns 1 or 0.
+    Default_enemy.isAlive();               // Checks if enemy's health is 0 or not. 
+                                           //Currently returns 1 or 0.
     ```
 
 
