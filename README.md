@@ -36,12 +36,12 @@
 
 1. Install Dependencies (If Applicable):
     - Before you can run the program, ensure the following dependencies are installed:
-    - C++ Compiler (g++): Make sure you have a C++ compiler installed. 
+    - **C++ Compiler (g++):** Make sure you have a C++ compiler installed. 
 
-    - VS Code Extensions: Ensure you have the C++ extension installed in VS Code. You can find it in the VS extentions by searching for C/C++.
+    - **VS Code Extensions:** Ensure you have the C++ extension installed in VS Code. You can find it in the VS extentions by searching for C/C++.
     
     
-    On Ubuntu, you can install it with:
+    **On Ubuntu**, you can install it with:
     ```
     sudo apt update
     sudo apt install g++
@@ -50,6 +50,40 @@
 2. Create `tasks.json` and paste the following:
 
    ```json
+    {
+        "version": "2.0.0",
+        "tasks": [
+            {
+                "label": "build main",
+                "type": "shell",
+                "command": "/usr/bin/g++",
+                "args": [
+                    "-g", 
+                    "-I", "${workspaceFolder}/src/Character",
+                    "${workspaceFolder}/src/main.cpp",
+                    "${workspaceFolder}/src/Character/Character.cpp",
+                    "${workspaceFolder}/src/Character/Player.cpp",
+                    "${workspaceFolder}/src/Character/Enemy.cpp",
+                    "${workspaceFolder}/src/SpecialAbilities/SpecialAttack.cpp",
+                    "-o", 
+                    "${workspaceFolder}/main"
+                ],
+                "group": {
+                    "kind": "build",
+                    "isDefault": true
+                },
+                "problemMatcher": ["$gcc"],
+                "detail": "Generated task for building the project"
+            }
+        ]
+    }
+
+   ```
+
+
+3. Update `c_cpp_properties.json` with the following:
+
+    ```c_cpp_properties.json
     {
     "configurations": [
         {
@@ -72,13 +106,14 @@
     ],
     "version": 4
     }
-   ```
+    ```
 
-3. Build the Program:
+
+4. Build the Program:
    - Press `Ctrl+Shift+B` in VS Code or go to **Terminal > Run Build Task**.
    - This will compile your program and create an executable file named `main`.
 
-4. Run the Program:
+5. Run the Program:
    - Open the terminal in VS Code (press `Ctrl+``).
    - Run the executable file with the following command:
      ```bash
