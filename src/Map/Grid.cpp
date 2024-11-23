@@ -1,6 +1,6 @@
 #include "Grid.h"
 
-// default constructor
+
 Grid::Grid() {
     for (int i = 0; i < 4; ++i) {
         for (int j = 0; j < 4; ++j) {
@@ -8,7 +8,6 @@ Grid::Grid() {
         }
     }
 }
-
 
 void Grid::clearPosition(int x, int y) {
     if (isValidPosition(x, y)) {
