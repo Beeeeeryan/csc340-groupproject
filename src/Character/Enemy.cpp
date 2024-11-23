@@ -1,3 +1,5 @@
+// Enemy.cpp
+
 #include "Enemy.h"
 
 // Default Constructor
@@ -24,4 +26,12 @@ Enemy::Enemy(std::string name, int health, int attackPower, int positionX, int p
 int Enemy::attack() const { // Polymorphism - override the attack function from the Character class.
     std::cout << (*this).name << " attacks with " << (*this).attackPower << " attack power!" << std::endl;
     return attackPower; 
+}
+
+int Enemy::takeDamage(int damage) { // Polymorphism - override the takeDamage function from the Character class.
+    health -= damage;
+    if (health < 0) {
+        health = 0;
+    }
+    return health;
 }

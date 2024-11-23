@@ -25,9 +25,11 @@ class Character {
         bool isAlive() const;
         std::string getName() const;
         int getAttackPower() const;
-        Position getPosition() const;  // Use Position struct instead of std::pair
+        Position getPosition() const;               // Use Position struct instead of std::pair
         int getHealth() const;
-        virtual int attack() const; // Polymorphism - virtual function
+        virtual int attack() const;                 // Polymorphism - virtual function
+        virtual int takeDamage(int damage);         // Polymorphism - virtual function
+        
 };
 
 #endif

@@ -1,3 +1,5 @@
+// Player.cpp
+
 #include "Player.h"
 
 // Default Constructor
@@ -29,4 +31,12 @@ int Player::attack() const {
 
 void Player::performSpecialAttack() const {
     specialAttack.SpAttack();  // Call the SpAttack method of SpecialAttack
+}
+
+int Player::takeDamage(int damage) { // Polymorphism - override the takeDamage function from the Character class.
+    health -= damage;
+    if (health < 0) {
+        health = 0;
+    }
+    return health;
 }

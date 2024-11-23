@@ -24,10 +24,12 @@
 │   │   └── Tile.cpp                 # Implementation of the Tile class
 │   └── main.cpp                      # Main entry point of the program
 ├── /build                          # (optional) Directory for build output (e.g., object files, executable)
-├── .vscode                          # VS Code configuration files (tasks.json, launch.json, etc.)
+├── .vscode                          # VS Code configuration files
+│   ├── tasks.json                   # VS Code task configuration for building the project
+│   ├── c_cpp_properties.json        # VS Code C++ settings for IntelliSense and includes
+│   ├── launch.json                  # VS Code configuration for running/debugging the project
+│   └── settings.json                # VS Code settings for customizing the environment
 ├── README.md                        # Project documentation or notes
-├── tasks.json                       # VS Code task configuration for building the project
-└── c_cpp_properties.json            # VS Code C++ settings for IntelliSense and includes
 </pre>
 
 ---
@@ -49,7 +51,7 @@
         
 ---
 
-2. Create `tasks.json` and paste the following:
+2. Create or update `tasks.json` and paste the following:
 
    ```json
     {
@@ -83,7 +85,7 @@
    ```
 
 
-3. Update `c_cpp_properties.json` with the following:
+3. Create or update `c_cpp_properties.json` with the following:
 
     ```c_cpp_properties.json
     {
@@ -109,16 +111,72 @@
     "version": 4
     }
     ```
+
+4. Create or update `launch.json` and paste the following:
+
+    ```launch.json
+        {
+    "version": "0.2.0",
+    "configurations": [
+        {
+        "name": "Debug C++ Program",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${workspaceFolder}/main",  // Path to the compiled executable
+        "args": [],
+        "stopAtEntry": false,
+        "cwd": "${workspaceFolder}",
+        "environment": [],
+        "externalConsole": true,
+        "MIMode": "gdb",
+        "setupCommands": [
+            {
+            "description": "Enable pretty-printing for gdb",
+            "text": "-enable-pretty-printing",
+            "ignoreFailures": true
+            }
+        ],
+        "miDebuggerPath": "/usr/bin/gdb",  // Path to gdb debugger
+        "preLaunchTask": "build main",     // This will run the build task before launching
+        "logging": {
+            "engineLogging": true
+        },
+        "externalConsole": true
+        }
+    ]
+    }
+    ```
+
+5. Create or update `settings.json` and paste the following:
+
+    ```settings.json
+        {
+        "C_Cpp.default.includePath": [
+            "${workspaceFolder}/src/Character",
+            "${workspaceFolder}/src/SpecialAbilities",
+            "${workspaceFolder}/src/Inventory",
+            "${workspaceFolder}/src/Map"
+        ],
+        "C_Cpp.default.compilerPath": "/usr/bin/g++",
+        "C_Cpp.default.intelliSenseMode": "linux-gcc-x64",
+        "files.associations": {
+            "*.cpp": "cpp",
+            "*.h": "cpp"
+        },
+        "C_Cpp_Runner.msvcBatchPath": ""
+        }
+    ```
+
 ---
 
-4. Build the Program:
+
+6. Build the Program:
    - Press `Ctrl+Shift+B` in VS Code or go to **Terminal > Run Build Task**.
    - This will compile your program and create an executable file named `main`.
 
-5. Run the Program:
+7. Run the Program:
    - Open the terminal in VS Code (press `Ctrl+``).
    - Run the executable file with the following command:
      ```bash
      ./main
      ```
----
