@@ -18,7 +18,7 @@ Enemy::Enemy(std::string name, int health, int attackPower, int positionX, int p
     grid.setEnemyPosition(positionX, positionY);  // Set initial position on the grid
 }
 
-int Enemy::attack() const {
+int Enemy::attack() const {\
     return attackPower; 
 }
 
