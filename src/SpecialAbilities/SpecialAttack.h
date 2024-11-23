@@ -11,8 +11,7 @@ private:
 
 public:
     SpecialAttack(int attackPower);  // Constructor accepts attackPower
-    void SpAttack() const;  // Perform the special attack (tripling the power)
-    int getAttackPower() const; // Getter for attackPower
+    int getSpAttackPower() const; // Getter for attackPower
 };
 
 #endif 

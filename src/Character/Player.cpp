@@ -29,8 +29,8 @@ int Player::attack() const {
     return attackPower;  // Return the attack power (int)
 }
 
-void Player::performSpecialAttack() const {
-    specialAttack.SpAttack();  // Call the SpAttack method of SpecialAttack
+int Player::getSpAttackPower() const {
+    return specialAttack.getSpAttackPower();  // Return the special attack power (int)
 }
 
 int Player::takeDamage(int damage) { // Polymorphism - override the takeDamage function from the Character class.
