@@ -1,3 +1,6 @@
+// Player.h 
+// Subclass of Character
+
 #ifndef PLAYER_H
 #define PLAYER_H
 

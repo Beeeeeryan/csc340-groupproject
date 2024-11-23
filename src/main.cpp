@@ -12,7 +12,6 @@ int main() {
     Position pos2 = player1.getPosition();      // Get position using the Position struct
     Position pos3 = enemy.getPosition();        // Get position using the Position struct
 
-
     cout << "-------- Testing Character Class! --------" << endl;
     cout << "Welcome " << player.getName() + "!" << endl;
     cout << "Is "<< player.getName() << " alive? " << (player.isAlive() ? "Yes" : "No") << endl;
@@ -40,8 +39,6 @@ int main() {
     cout << enemy.getName() << " has " << enemy.getAttackPower() << " attack power!" << endl;
     enemy.attack();
     cout << enemy.getName() << " is positioned at (" << pos3.x << ", " << pos3.y << ")" << endl;
-
-
 
     return 0;
 }

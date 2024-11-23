@@ -28,6 +28,7 @@ class Character {
         Position getPosition() const;  // Use Position struct instead of std::pair
         int getHealth() const;
         virtual int attack() const; // Polymorphism - virtual function
+        
 };
 
 #endif

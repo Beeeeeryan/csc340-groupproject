@@ -1,3 +1,6 @@
+// Enemy.h
+// Subclass of Character
+
 #ifndef ENEMY_H
 #define ENEMY_H
 #include "Character.h"  
