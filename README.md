@@ -196,6 +196,7 @@
 - **Calling Object Functions**
     - Each of these functions performs a specific task related to the `Default_player` and `Default_enemy` objects, such as performing an attack, checking health, applying damage, moving the player, or checking if the player is still alive.
     ```cpp
+    Default_player.getName();              // Returns string of player's name.
     Default_player.attack();               // Returns int value of player's attack value.
     Default_player.getHealth();            // Returns int value of player's health.
     Default_player.takeDamage(parameter);  // Subtracts from player object's health.
@@ -206,6 +207,7 @@
     ```
 
     ```cpp
+    Default_enemy.getName();               // Returns string of enemy's name.
     Default_enemy.attack();                // Returns int value of enemy's attack value.
     Default_enemy.getHealth();             // Returns int value of enemy's health.
     Default_enemy.takeDamage(parameter);   // Subtracts from enemy's health.
@@ -214,5 +216,9 @@
                                            //Currently returns 1 or 0.
     ```
 
+    - code for displaying grid along with enemy and player position
+    ```cpp
+    grid.displayGrid()                     
 
+    ```
 
