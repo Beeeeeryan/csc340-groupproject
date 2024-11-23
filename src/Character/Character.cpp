@@ -48,3 +48,11 @@ int Character::attack() const {
     std::cout << name << " attacks with " << attackPower << " attack power!" << std::endl;
     return attackPower; 
 }
+
+int Character::takeDamage(int damage) {
+    health -= damage;
+    if (health < 0) {
+        health = 0;
+    }
+    return health;
+}

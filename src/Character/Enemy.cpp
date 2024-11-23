@@ -27,3 +27,11 @@ int Enemy::attack() const { // Polymorphism - override the attack function from 
     std::cout << (*this).name << " attacks with " << (*this).attackPower << " attack power!" << std::endl;
     return attackPower; 
 }
+
+int Enemy::takeDamage(int damage) { // Polymorphism - override the takeDamage function from the Character class.
+    health -= damage;
+    if (health < 0) {
+        health = 0;
+    }
+    return health;
+}

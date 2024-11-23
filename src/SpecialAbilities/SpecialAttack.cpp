@@ -13,5 +13,5 @@ void SpecialAttack::SpAttack() const {
 }
 
 int SpecialAttack::getAttackPower() const {
-    return attackPower;
+    return (*this).attackPower;
 }
