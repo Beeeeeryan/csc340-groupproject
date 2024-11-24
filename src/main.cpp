@@ -25,7 +25,7 @@ int getMenuChoice() {
 }
 
 void unitTest() {
-    Grid grid;
+    Grid* grid = new Grid ();
     string playerName = "Player";
     string enemyName = "Enemy";
 
@@ -59,7 +59,7 @@ void unitTest() {
     // Display the initial grid
     cout << "-------- Initial Grid State --------" << endl;
     cout << endl;
-    grid.displayGrid();
+    grid->displayGrid();
     cout << endl;
 
 
@@ -67,7 +67,7 @@ void unitTest() {
     // grid.setPlayerPosition(player1.getPosition().x, player1.getPosition().y);
     // grid.setEnemyPosition(enemy.getPosition().x, enemy.getPosition().y);
 
-    grid.displayGrid();
+    grid->displayGrid();
     cout << endl;
 
     //X Neg-Values move up in the grid, X Pos-Values move down
@@ -77,13 +77,13 @@ void unitTest() {
     player1.move(-1, 0);
     enemy.move(0, -1); 
 
-    grid.displayGrid();
+    grid->displayGrid();
     cout << endl;
 
     cout << "P moves up one Spaces, E moves left one spaces" << endl; //Should expect battle interface 
     player1.move(-1, 0);
     enemy.move(0, -1); 
-    grid.displayGrid();
+    grid->displayGrid();
 
     
     cout << endl;
@@ -121,17 +121,17 @@ int choiceAfterStartGame() {
 
 void startGame() {
     int choice;
-    Grid grid;
+    Grid *grid =  new Grid();
     string playerName = "Player";
     string enemyName = "Enemy";
     Player player(playerName, 100, 10, 3, 0, grid); //Starting pos bottom left
     Enemy enemy(enemyName, 50, 5, 0, 3, grid); //Starting pos top right
-
+    
 
     do
     {
         //What will always displays
-        grid.displayGrid();
+        grid->displayGrid();
         cout << "--------------------------------------------" << endl;
         displayMovementOption();
         cout << "--------------------------------------------" << endl;
@@ -163,7 +163,7 @@ void startGame() {
         }
         
         
-        if(grid.areAdjacent(player.getPositionX(), player.getPositionY(), enemy.getPositionX(), enemy.getPositionY()))
+        if(grid->areAdjacent(player.getPositionX(), player.getPositionY(), enemy.getPositionX(), enemy.getPositionY()))
         {
            cout <<"Enterting Battle!!!!!" << endl;
           displayBattleLog(player, enemy);
@@ -171,9 +171,9 @@ void startGame() {
           if(player.isAlive())
           {
             //clear enemygrid position
-            grid.clearPosition(enemy.getPositionX(), enemy.getPositionY());
-            //Populate a new enemy
-            Enemy enemy(enemyName, 50, 5, 1, 3, grid);
+            grid->clearPosition(enemy.getPositionX(), enemy.getPositionY());
+            //re-initialize the same enemy
+            enemy = Enemy(enemyName, 50, 5, 1, 3, grid);
           }
         }
 

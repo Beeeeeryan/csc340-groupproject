@@ -10,6 +10,7 @@ private:
     int attackPower;                    // Store the attack power passed from Player
 
 public:
+    SpecialAttack(); //Default constructor
     SpecialAttack(int attackPower);     // Constructor accepts attackPower
     int getSpAttackPower() const;       // Getter for attackPower
 };

@@ -6,17 +6,26 @@
 #include "UserInterface.h"
 using namespace std;
 
-// Populates the grid with zeros
+// Constructor: dynamically allocate a 4x4 grid and initialize with zeros
 Grid::Grid() {
-    for (int i = 0; i < 4; ++i) {
-        for (int j = 0; j < 4; ++j) {
-            grid[i][j] = 0;
+    grid = new int*[rows];  // Allocate rows
+    for (int i = 0; i < rows; ++i) {
+        grid[i] = new int[cols];  // Allocate columns for each row
+        for (int j = 0; j < cols; ++j) {
+            grid[i][j] = 0;  // Initialize all positions to zero
         }
     }
 }
 
-// Clears the prevoius position of the player or enemy
-// So that we don't see duplicate positions on the grid
+// Destructor: deallocate the dynamically allocated grid
+Grid::~Grid() {
+    for (int i = 0; i < rows; ++i) {
+        delete[] grid[i];  // Deallocate each row
+    }
+    delete[] grid;  // Deallocate the array of row pointers
+}
+
+// Clears the position on the grid
 void Grid::clearPosition(int x, int y) {
     if (isValidPosition(x, y)) {
         grid[x][y] = 0;
@@ -30,33 +39,17 @@ void Grid::setPosition(int x, int y, int value) {
 }
 
 void Grid::setPlayerPosition(int x, int y) {
-    setPosition(x, y, 1);
+    setPosition(x, y, 1);  // 1 represents the player
 }
 
 void Grid::setEnemyPosition(int x, int y) {
-    setPosition(x, y, 2);
+    setPosition(x, y, 2);  // 2 represents the enemy
 }
 
-// Displays the grid
-// Displays 'P' for player, 'E' for enemy and '_' for empty space
-// If the grid has a 0, it displays '_'
-// If the grid has a 1, it displays 'P'
-// If the grid has a 2, it displays 'E'
+// Displays the grid with 'P' for player, 'E' for enemy, and '_' for empty space
 void Grid::displayGrid() const {
-    // Find positions of P and E
-    int pX = -1, pY = -1, eX = -1, eY = -1;
-
-    for (int i = 0; i < 4; ++i) {
-        for (int j = 0; j < 4; ++j) {
-            if (grid[i][j] == 1) {  // Player found
-                pX = i;
-                pY = j;
-            } else if (grid[i][j] == 2) {  // Enemy found
-                eX = i;
-                eY = j;
-            }
-
-            // Print the grid symbol
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
             if (grid[i][j] == 0) {
                 std::cout << "_ ";
             } else if (grid[i][j] == 1) {
@@ -66,24 +59,17 @@ void Grid::displayGrid() const {
             }
         }
         std::cout << std::endl;
-   }
-    // Check if P and E are adjacent
-    //if (areAdjacent(pX, pY, eX, eY)) {
-       // displayAttackOption();
-    //}
+    }
 }
 
-// Function to check adjacency
-bool Grid::areAdjacent(int pX, int pY, int eX, int eY) const{
-    // Ensure valid positions
-    if (pX == -1 || eX == -1) 
-    return false;
-
-    // Check if positions are adjacent
+// Check if positions are adjacent
+bool Grid::areAdjacent(int pX, int pY, int eX, int eY) const {
+    if (pX == -1 || eX == -1)  // Ensure valid positions
+        return false;
     return (std::abs(pX - eX) <= 1 && std::abs(pY - eY) <= 1);
 }
 
-// Checks if the position is within the grid
+// Check if the position is within the grid bounds
 bool Grid::isValidPosition(int x, int y) const {
-    return (x >= 0 && x < 4 && y >= 0 && y < 4);
+    return (x >= 0 && x < rows && y >= 0 && y < cols);
 }

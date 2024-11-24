@@ -8,8 +8,8 @@
 
 class Player : public Character {
 public:
-    Player(Grid& grid);
-    Player(std::string name, int health, int attackPower, int positionX, int positionY, Grid& grid);
+    Player(Grid* grid);
+    Player(std::string name, int health, int attackPower, int positionX, int positionY, Grid* grid);
     int attack() const override;
     int takeDamage(int damage) override;
     int getSpAttackPower() const;
