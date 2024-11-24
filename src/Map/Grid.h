@@ -19,6 +19,7 @@ public:
     void setPosition(int x, int y, int value);
     void displayGrid() const;
     bool isValidPosition(int x, int y) const;
+    bool areAdjacent(int pX, int pY, int eX, int eY) const;
 };
 
 #endif

@@ -49,6 +49,12 @@ int Character::getAttackPower() const {
 Position Character::getPosition() const {
     return {positionX, positionY};  // Return position as a Position struct
 }
+int Character::getPositionX() const{
+    return this->positionX;
+}
+int Character::getPositionY() const{
+    return this->positionY;
+}
 
 int Character::getHealth() const {
     return health;

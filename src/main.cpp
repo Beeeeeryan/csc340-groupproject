@@ -5,40 +5,13 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Grid.h"
+#include "UserInterface.h"
 
 using namespace std;
 
-enum Actions {
-    QUIT = 0,
-    START_GAME = 1,
-    UNIT_TEST = 2,
-};
-
-enum Movement {
-    UP = 1,
-    DOWN = 2,
-    LEFT = 3,
-    RIGHT = 4,
-};
-
-enum Options {
-    BACK = 0,
-    ATTACK = 1,
-    SPECIAL_ATTACK = 2,
-};
-
-const int min_menu_option = 1;
-const int max_menu_option = 2;
 
 int getMenuChoice() {
     int userInput;
-
-    cout << "--------------------------------------------" << endl;
-    cout << "Tactical Role-Playing Game" << endl;
-    cout << "(" << START_GAME << ")" << " Start Game" << endl;
-    cout << "(" << UNIT_TEST << ")" << " Unit Test" << endl;
-    cout << "Enter a number from " << min_menu_option << " to " << max_menu_option << ", or " 
-         << min_menu_option - 1 << " to exit: " << endl;
 
     cin >> userInput; 
 
@@ -97,13 +70,34 @@ void unitTest() {
     grid.displayGrid();
     cout << endl;
 
-    player1.move(-1, 0);  
-    enemy.move(0, -2);   
+    //X Neg-Values move up in the grid, X Pos-Values move down
+    //Y-Neg Values move left in the grid, Y Pos-Values move right
+  
+    cout << "P moves up one Spaces, E moves left one spaces" << endl;
+    player1.move(-1, 0);
+    enemy.move(0, -1); 
 
     grid.displayGrid();
     cout << endl;
+
+    cout << "P moves up one Spaces, E moves left one spaces" << endl; //Should expect battle interface 
+    player1.move(-1, 0);
+    enemy.move(0, -1); 
+    grid.displayGrid();
+
+    
+    cout << endl;
+
+
+    cout << "P moves up one Spaces, E moves left one spaces" << endl;
+    player1.move(-1, 0);
+    enemy.move(0, -1); 
+
+
     cout << "Unit Test Concluded!" <<endl;
     cout << endl;
+
+
 }
 
 int choiceAfterStartGame() {
@@ -130,16 +124,65 @@ void startGame() {
     Grid grid;
     string playerName = "Player";
     string enemyName = "Enemy";
-    Player player(playerName, 100, 10, 3, 0, grid);
-    Enemy enemy(enemyName, 50, 5, 0, 3, grid);
-    grid.displayGrid();
-    cout << "--------------------------------------------" << endl;
-    cout << "Player health: " << player.getHealth() << endl;
-    cout << "Enemy health: " << enemy.getHealth() << endl;
-    choice = choiceAfterStartGame();
-    cout << "--------------------------------------------" << endl;
+    Player player(playerName, 100, 10, 3, 0, grid); //Starting pos bottom left
+    Enemy enemy(enemyName, 50, 5, 0, 3, grid); //Starting pos top right
 
-    do {
+
+    do
+    {
+        //What will always displays
+        grid.displayGrid();
+        cout << "--------------------------------------------" << endl;
+        displayMovementOption();
+        cout << "--------------------------------------------" << endl;
+        cout << "Player health: " << player.getHealth() << endl;
+        cout << "Enemy health: " << enemy.getHealth() << endl;
+        cout << "--------------------------------------------" << endl;
+
+
+    
+
+        choice = getMovementOption();
+        //Update movement on the grid
+        //X Neg-Values move up in the grid, X Pos-Values move down
+        //Y-Neg Values move left in the grid, Y Pos-Values move right
+        if(choice == UP)
+        {
+            player.move(-1, 0);
+           
+        }
+        else if (choice == DOWN)
+        {
+            player.move(1, 0);
+        }else if (choice == LEFT)
+        {
+            player.move(0, -1);
+        }else if (choice == RIGHT)
+        {
+            player.move(0, 1);
+        }
+        
+        
+        if(grid.areAdjacent(player.getPositionX(), player.getPositionY(), enemy.getPositionX(), enemy.getPositionY()))
+        {
+           cout <<"Enterting Battle!!!!!" << endl;
+          displayBattleLog(player, enemy);
+            //Checks as long as player is still alive create more enemies
+          if(player.isAlive())
+          {
+            //clear enemygrid position
+            grid.clearPosition(enemy.getPositionX(), enemy.getPositionY());
+            //Populate a new enemy
+            Enemy enemy(enemyName, 50, 5, 1, 3, grid);
+          }
+        }
+
+    } while (choice != QUIT);
+    
+
+ /*
+
+   do {
         if (choice == ATTACK) {
             player.attack();
             enemy.takeDamage(player.attack());
@@ -177,10 +220,16 @@ void startGame() {
         } 
         choice = choiceAfterStartGame();
     } while (choice != QUIT);
+ */ 
+
+
 }
 
 int main() {
     int choice;
+
+    displayStartGame();
+    cout << endl;
 
     do {
         choice = getMenuChoice();

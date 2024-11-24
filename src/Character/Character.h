@@ -29,6 +29,8 @@ public:
     int getAttackPower() const;
     Position getPosition() const;
     int getHealth() const;
+    int getPositionX() const;
+    int getPositionY() const;
     virtual int attack() const;
     virtual int takeDamage(int damage);
 };
