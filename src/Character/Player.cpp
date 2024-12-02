@@ -2,25 +2,46 @@
 
 #include "Player.h"
 #include "../Map/Grid.h"  // Include Grid class
+#include <string>
+#include <iostream>
+using namespace std;
 
 // Default Constructor
-Player::Player(Grid& grid)
-    : Character(grid),
-      specialAttack(0)
-{
-    name = "Player";
-    positionX = 0;
-    positionY = 0;
-    grid.setPlayerPosition(positionX, positionY);  // Set initial position on the grid
+Player::Player(Grid* grid) {
+
+    // Initialize Player-specific members
+    this->name = "Player";
+    this->positionX = 0;
+    this->positionY = 0;
+    this->specialAttack;
+    this->grid = grid;
+
+    // Set initial position on the grid
+    grid->setPlayerPosition(this->positionX, this->positionY);
 }
 
-// Parameterized Constructor
-Player::Player(std::string name, int health, int attackPower, int positionX, int positionY, Grid& grid)
-    : Character(name, health, attackPower, positionX, positionY, grid),
-      specialAttack(attackPower)
-{
-    grid.setPlayerPosition(positionX, positionY);  // Set initial position on the grid
+Player::Player(string name, int health, int attackPower, int positionX, int positionY, const vector<Item>& items, Grid* grid) {
+    this->name = name;
+    this->health = health;
+    this->attackPower = attackPower;
+    this->positionX = positionX;
+    this->positionY = positionY;
+    this->grid = grid;
+
+    // Initialize Player-specific members
+    this->specialAttack = attackPower;
+
+    // Initialize a player's inventory
+    // We use the vector of items passed to this constructor to initialize inventory
+    inventory =  new Inventory(items);  // Inventory takes ownership of items passed by reference
+
+    // Set initial position on the grid
+    grid->setPlayerPosition(this->positionX, this->positionY);
 }
+Player::~Player(){
+    delete inventory;
+}
+
 
 int Player::attack() const {
     return attackPower;  // Return the attack power (int)
@@ -28,6 +49,14 @@ int Player::attack() const {
 
 int Player::getSpAttackPower() const {
     return specialAttack.getSpAttackPower();  // Return the special attack power (int)
+}
+
+void Player::setEnemyCounter(int newEnemyCounter){
+    this->enemyCounter = newEnemyCounter;
+}
+int Player::getEnemyCounter() const
+{
+    return this->enemyCounter;
 }
 
 int Player::takeDamage(int damage) { // Polymorphism - override the takeDamage function from the Character class.
@@ -39,17 +68,30 @@ int Player::takeDamage(int damage) { // Polymorphism - override the takeDamage f
 }
 
 void Player::move(int x, int y) {
-    grid.clearPosition(positionX, positionY);
+    grid->clearPosition(positionX, positionY);
 
     int newX = positionX + x;
     int newY = positionY + y;
 
-    if (grid.isValidPosition(newX, newY)) {
+    if (grid->isValidPosition(newX, newY)) {
         positionX = newX;
         positionY = newY;
     } else {
-        std::cout << name << " cannot move to (" << newX << ", " << newY << ") - out of bounds!" << std::endl;
+        cout << name << " cannot move to (" << newX << ", " << newY << ") - out of bounds!" << endl;
     }
 
-    grid.setPlayerPosition(positionX, positionY);
+    grid->setPlayerPosition(positionX, positionY);
+}
+
+void Player::addItemToInventory(const Item& newItem){
+    inventory->addItem(newItem);
+}
+void Player::removeItemFromInventory(const string &itemName){
+    inventory->removeItem(itemName);
+}
+void Player::displayInventory() const {
+    inventory->displayInventory();
+}
+void Player::sortInventory(){
+    inventory->sortItems();
 }

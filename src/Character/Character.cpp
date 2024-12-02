@@ -1,38 +1,38 @@
 // Character.cpp - Implementation of the abstract base class
 
 #include "Character.h"
-#include "Grid.h"
+#include <iostream>
 
-Character::Character(Grid& grid)
-    : name("Default Character"), 
-      health(100), 
-      attackPower(10), 
-      positionX(0), 
-      positionY(0),
-      grid(grid)  // Initialize the reference member
-{}
+// Default constructor
+Character::Character() {
+    this->name = "Default Character";
+    this->health = 100;
+    this->attackPower = 10;
+    this->positionX = 0;
+    this->positionY = 0;
+    this->grid = grid;  // Default to null if no grid is provided
+}
 
-Character::Character(std::string name, int health, int attackPower, int positionX, int positionY, Grid& grid)
-    : name(name), 
-      health(health), 
-      attackPower(attackPower), 
-      positionX(positionX), 
-      positionY(positionY),
-      grid(grid)  // Initialize the reference member
-{}
+// Default constructor with grid pointer
+Character::Character(Grid* grid) {
+    this->name = "Default Character";
+    this->health = 100;
+    this->attackPower = 10;
+    this->positionX = 0;
+    this->positionY = 0;
+    this->grid = grid;  // Initialize the pointer member
+}
 
+// Parameterized constructor with grid pointer
+Character::Character(std::string name, int health, int attackPower, int positionX, int positionY, Grid* grid) {
+    this->name = name;
+    this->health = health;
+    this->attackPower = attackPower;
+    this->positionX = positionX;
+    this->positionY = positionY;
+    this->grid = grid;
+}
 
-// void Character::move(int x, int y) {
-//     positionX += x;
-//     positionY += y;
-//     if (grid.isValidPosition(positionX, positionY)) {
-//         std::cout << name << " moved to (" << positionX << ", " << positionY << ")" << std::endl;
-//     } else {
-//         std::cout << name << " cannot move to (" << positionX << ", " << positionY << ") - out of bounds!" << std::endl;
-//         positionX -= x;
-//         positionY -= y;
-//     }
-// }
 
 bool Character::isAlive() const {
     return health > 0;
@@ -48,6 +48,14 @@ int Character::getAttackPower() const {
 
 Position Character::getPosition() const {
     return {positionX, positionY};  // Return position as a Position struct
+}
+
+int Character::getPositionX() const {
+    return this->positionX;
+}
+
+int Character::getPositionY() const {
+    return this->positionY;
 }
 
 int Character::getHealth() const {

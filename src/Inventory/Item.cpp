@@ -1,31 +1,43 @@
 #include "Item.h"
 #include <iostream>
+using namespace std;
 
 
-Item::Item(const std::string& ItemName, const std::string& ItemDesc, int ItemAmount)
-    : ItemName(ItemName), ItemDescription(ItemDesc), ItemAmount(ItemAmount) {}
+Item::Item(){
+  ItemName = "Unknown";
+  ItemName = "No description available";
+  ItemAmount = 0;
+}
+
+Item::Item(const string& ItemName, const string& ItemDesc, int ItemAmount)
+{
+  this->ItemName = ItemName;
+  this->ItemDescription = ItemDesc;
+  this->ItemAmount = ItemAmount;
+}
 
 Item::~Item() {}
 
-
-std::string Item::GetName() const { 
-    return ItemName; 
+ string Item::GetName() const { 
+    return this->ItemName; 
 }
-
-std::string Item::GetDesc() const { 
-    return ItemDescription; 
+ string Item::GetDescription() const { 
+    return this->ItemDescription; 
 }
 
 
 int Item::GetAmount() const { 
-    return ItemAmount; 
+    return this->ItemAmount; 
+}
+void Item::setAmount(int newAmount){
+  this->ItemAmount = newAmount;
 }
 
 void Item::UseItem() {
     if (ItemAmount > 0) {
-        std::cout << "Using " << ItemName << ": " << ItemDescription << "\n";
+       cout << "Using " << ItemName << ": " << ItemDescription << "\n";
         --ItemAmount;
     } else {
-        std::cout << "No " << ItemName << " left to use.\n";
+       cout << "No " << ItemName << " left to use.\n";
     }
 }

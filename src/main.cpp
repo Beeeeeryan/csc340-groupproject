@@ -1,44 +1,28 @@
 // main.cpp
 
 #include <iostream>
+#include <string>
+#include <vector>
+#include <cstdlib> 
+#include <ctime>   
 #include "Character.h"
 #include "Player.h"
 #include "Enemy.h"
 #include "Grid.h"
+#include "UserInterface.h"
+#include "Inventory.h"
+#include "Item.h"
+#include "Node.h"
 
 using namespace std;
 
-enum Actions {
-    QUIT = 0,
-    START_GAME = 1,
-    UNIT_TEST = 2,
-};
 
-enum Movement {
-    UP = 1,
-    DOWN = 2,
-    LEFT = 3,
-    RIGHT = 4,
-};
-
-enum Options {
-    BACK = 0,
-    ATTACK = 1,
-    SPECIAL_ATTACK = 2,
-};
-
-const int min_menu_option = 1;
-const int max_menu_option = 2;
-
+// Generate a random number inclusive
+int getRandomValue(int min, int max) {
+    return rand() % (max - min + 1) + min;  
+}
 int getMenuChoice() {
     int userInput;
-
-    cout << "--------------------------------------------" << endl;
-    cout << "Tactical Role-Playing Game" << endl;
-    cout << "(" << START_GAME << ")" << " Start Game" << endl;
-    cout << "(" << UNIT_TEST << ")" << " Unit Test" << endl;
-    cout << "Enter a number from " << min_menu_option << " to " << max_menu_option << ", or " 
-         << min_menu_option - 1 << " to exit: " << endl;
 
     cin >> userInput; 
 
@@ -52,14 +36,21 @@ int getMenuChoice() {
 }
 
 void unitTest() {
-    Grid grid;
+    Grid* grid = new Grid ();
     string playerName = "Player";
     string enemyName = "Enemy";
+    // Create some items
+    Item potion("Potion", "Restores 50 HP", 3);
+    Item sword("Sword", "A sharp blade", 1);
+    Item shield("Shield", "Protects from damage", 1);
+    // Create a vector of items
+    vector<Item> items = {potion, sword, shield};
 
-    Player player1(playerName, 100, 10, 3, 0, grid);
+    Player player1(playerName, 100, 10, 3, 0, items, grid);
+    player1.displayInventory();
     Enemy enemy(enemyName, 50, 5, 0, 3, grid);
 
- 
+    
     // Display player and enemy details
     cout << "-------- Testing Player Class! --------" << endl;
     cout << endl;
@@ -86,7 +77,7 @@ void unitTest() {
     // Display the initial grid
     cout << "-------- Initial Grid State --------" << endl;
     cout << endl;
-    grid.displayGrid();
+    grid->displayGrid();
     cout << endl;
 
 
@@ -94,16 +85,59 @@ void unitTest() {
     // grid.setPlayerPosition(player1.getPosition().x, player1.getPosition().y);
     // grid.setEnemyPosition(enemy.getPosition().x, enemy.getPosition().y);
 
-    grid.displayGrid();
+    grid->displayGrid();
     cout << endl;
 
-    player1.move(-1, 0);  
-    enemy.move(0, -2);   
+    //X Neg-Values move up in the grid, X Pos-Values move down
+    //Y-Neg Values move left in the grid, Y Pos-Values move right
+  
+    cout << "P moves up one Spaces, E moves left one spaces" << endl;
+    player1.move(-1, 0);
+    enemy.move(0, -1); 
 
-    grid.displayGrid();
+    grid->displayGrid();
     cout << endl;
+
+    cout << "P moves up one Spaces, E moves left one spaces" << endl; //Should expect battle interface 
+    player1.move(-1, 0);
+    enemy.move(0, -1); 
+    grid->displayGrid();
+
+    
+    cout << endl;
+
+
+    cout << "P moves up one Spaces, E moves left one spaces" << endl;
+    player1.move(-1, 0);
+    enemy.move(0, -1); 
+
+ 
+    cout << endl;
+    cout <<"Checking players inventory----------" << endl;
+    cout << endl;
+    cout <<"Player's inventory: "<< endl;
+    player1.displayInventory();
+    cout << endl;
+    cout <<"Checking add item in player inventory-------" << endl;
+    Item helmet("Helmet", "Shiny helmet", 1);
+    player1.addItemToInventory(helmet);
+    cout << endl;
+    cout << "Added checking player inventory-----" << endl;
+    player1.displayInventory();
+    cout << "Removing an item named Potion" << endl;
+    player1.removeItemFromInventory("Potion");
+    cout << "Displaying player inventory after deletion" << endl;
+    player1.displayInventory();
+    cout << "Test sorted inventory alphabetically" << endl;
+    player1.sortInventory();
+    player1.displayInventory();
+ 
+
+
     cout << "Unit Test Concluded!" <<endl;
     cout << endl;
+
+
 }
 
 int choiceAfterStartGame() {
@@ -127,19 +161,86 @@ int choiceAfterStartGame() {
 
 void startGame() {
     int choice;
-    Grid grid;
+    Grid *grid =  new Grid();
     string playerName = "Player";
     string enemyName = "Enemy";
-    Player player(playerName, 100, 10, 3, 0, grid);
-    Enemy enemy(enemyName, 50, 5, 0, 3, grid);
-    grid.displayGrid();
-    cout << "--------------------------------------------" << endl;
-    cout << "Player health: " << player.getHealth() << endl;
-    cout << "Enemy health: " << enemy.getHealth() << endl;
-    choice = choiceAfterStartGame();
-    cout << "--------------------------------------------" << endl;
+    // Create some items
+    Item potion("Potion", "Restores 50 HP", 3);
+    Item sword("Sword", "A sharp blade", 1);
+    Item shield("Shield", "Protects from damage", 1);
+    // Create a vector of items
+    vector<Item> items = {potion, sword, shield};
+    Player player(playerName, 100, 10, 3, 0, items, grid); //Starting pos bottom left
+    Enemy enemy(enemyName, 50, 5, 0, 3, grid); //Starting pos top right
+    
 
-    do {
+    do
+    {
+        //What will always displays
+        grid->displayGrid();
+        cout << "-------------------------------" << endl;
+        displayMovementOption();
+        cout << "-------------------------------" << endl;
+        cout << "Player health: " << player.getHealth() << endl;
+        cout << "Enemy health: " << enemy.getHealth() << endl;
+        cout << "-------------------------------" << endl;
+
+
+    
+
+        choice = getMovementOption();
+        //Update movement on the grid
+        //X Neg-Values move up in the grid, X Pos-Values move down
+        //Y-Neg Values move left in the grid, Y Pos-Values move right
+        if(choice == UP)
+        {
+            player.move(-1, 0);
+           
+        }
+        else if (choice == DOWN)
+        {
+            player.move(1, 0);
+        }else if (choice == LEFT)
+        {
+            player.move(0, -1);
+        }else if (choice == RIGHT)
+        {
+            player.move(0, 1);
+        }else if(choice == INVENTORY)
+        {
+            displayInventoryOption(player);
+        }
+        
+        
+        if(grid->areAdjacent(player.getPositionX(), player.getPositionY(), enemy.getPositionX(), enemy.getPositionY()))
+        {
+           cout <<"Enterting Battle!!!!!" << endl;
+          displayBattleLog(player, enemy);
+            //Checks as long as player is still alive create more enemies
+          if(player.isAlive())
+          {
+            //clear enemygrid position
+            grid->clearPosition(enemy.getPositionX(), enemy.getPositionY());
+            //re-initialize the same enemy with a random position in the grid
+            do
+            {
+                srand(time(0));
+                int x = getRandomValue(0, 3);
+                int y = getRandomValue(0, 3);
+                cout << x << y << endl;
+                enemy = Enemy(enemyName, 50, 5, x, y, grid);
+                //Makes sure the positions arent overlapped and doesnt spawn right next to the player
+            } while (player.getPositionX() == enemy.getPositionX() && player.getPositionY() == enemy.getPositionY() && !(grid->areAdjacent(player.getPositionX(), player.getPositionY(), enemy.getPositionX(), enemy.getPositionY())));
+            
+          }
+        }
+
+    } while (choice != QUIT);
+    
+
+ /*
+
+   do {
         if (choice == ATTACK) {
             player.attack();
             enemy.takeDamage(player.attack());
@@ -177,10 +278,16 @@ void startGame() {
         } 
         choice = choiceAfterStartGame();
     } while (choice != QUIT);
+ */ 
+
+
 }
 
 int main() {
     int choice;
+
+    displayStartGame();
+    cout << endl;
 
     do {
         choice = getMenuChoice();
