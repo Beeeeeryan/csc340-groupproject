@@ -1,6 +1,8 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
+#include <cstdlib>
+#include <ctime>
 #include "UserInterface.h"
 #include "Character.h"
 #include "Enemy.h"
@@ -15,37 +17,61 @@ void displayAttackOption()
 void displayInventoryOption()
 void displayAfterBattleOptions()
 */
+
+// Function to generate a random item
+Item getRandomItem() {
+  // Seed the random number generator
+  srand(time(0));
+
+  // Item DB
+  vector<Item> lootItems = {
+    Item("Health Potion", "Restores 50 HP", 1),
+    Item("Mana Potion", "Restores 30 MP", 1),
+    Item("Gold Coin", "A shiny gold coin", 10),
+    Item("Magic Scroll", "Contains an ancient spell", 1),
+    Item("Magic Scroll", "Contains an ancient spell", 1),
+    Item("Iron Sword", "A sturdy weapon with extra damage", 1),
+    Item("Shield", "Provides extra defense in battle", 1)
+  };
+
+  // Randomly select an item from the vector
+  int randomIndex = rand() % lootItems.size();
+  return lootItems[randomIndex];
+}
+
+// Function to print centered text
+void printCentered(const string& text, int box_width) {
+    int padding = (box_width - 2 - text.length()) / 2; // Calculate padding (minus 2 for the borders '|')
+    cout << "|" << string(padding, ' ') << text;
+    // Add extra space if padding leaves room due to odd/even difference
+    cout << string(box_width - 2 - padding - text.length(), ' ') << "|" << endl;
+}
+
+
+
+
 void displayStartGame(){
 
-    cout << string(border_width, '-') <<endl;
-    cout << "|";
-    cout << setw(content_width) << right << "Tactical Role-Playing Game";
-    cout << "|" << endl;
- 
-     // Print options
-    cout << "|";
-    cout << setw(content_width - 12) << right << "(" << START_GAME << ") Start Game";
-    cout << "|" << endl;
+    int box_width = border_width; 
 
-    cout << "|";
-    cout << setw(content_width - 11) << right << "(" << UNIT_TEST << ") Unit Test";
-    cout << "|" << endl;
+    // Print the top border
+    cout << string(box_width, '-') << endl;
 
+    // Print centered
+    printCentered("Tactical Role-Playing Game", box_width);
+    printCentered("(" + to_string(START_GAME) + ") Start Game", box_width);
+    printCentered("(" + to_string(UNIT_TEST) + ") Unit Test", box_width);
+    printCentered("Enter a number from " + to_string(min_menu_option) + " to " + to_string(max_menu_option), box_width);
+    printCentered("or " + to_string(min_menu_option - 1) + " to exit: ", box_width);
 
-    // Print the prompt message centered
-   cout << "|";
-   cout <<setw(content_width - 12) <<right << "Enter a number from " << min_menu_option << " to " << max_menu_option;
-   cout << "|" <<endl;
+    // Print the bottom border
+    cout << string(box_width, '-') << endl;
 
-   cout << "|";
-   cout <<setw(content_width - 10) <<right << "or " << min_menu_option - 1 << " to exit: ";
-   cout << "|" <<endl;
-   cout << string(border_width, '-') <<endl;
 }
 int getMovementOption(){
   int userChoice;
   cin >> userChoice;
-  if(userChoice > 4 || userChoice <= 0)
+  if(userChoice > 5 || userChoice <= 0)
   {
     cout << "Error please enter a valid choice within range." << endl;
     getMovementOption();
@@ -54,21 +80,20 @@ int getMovementOption(){
 }
 void displayMovementOption(){
 
-    //Print options
-    cout << string(border_width, '-') <<endl;
-    cout << "|";
-    cout << setw(content_width - 18) << right << "(" << UP << ") Move Up One Tile";
-    cout << "|" << endl;
-    cout << "|";
-    cout << setw(content_width - 18) << right << "(" << DOWN << ") Move Down One Tile";
-    cout << "|" << endl;
-    cout << "|";
-    cout << setw(content_width - 18) << right << "(" << LEFT << ") Move Left One Tile";
-    cout << "|" << endl;
-    cout << "|";
-    cout << setw(content_width - 18) << right << "(" << RIGHT << ") Move Right One Tile";
-    cout << "|" << endl;
-    cout << string(border_width, '-') <<endl;
+    int box_width = border_width;  
+
+    // Print the top border
+    cout << string(box_width, '-') << endl;
+
+    // Print movement options centered
+    printCentered("(" + to_string(UP) + ") Move Up One Tile", box_width);
+    printCentered("(" + to_string(DOWN) + ") Move Down One Tile", box_width);
+    printCentered("(" + to_string(LEFT) + ") Move Left One Tile", box_width);
+    printCentered("(" + to_string(RIGHT) + ") Move Right One Tile", box_width);
+    printCentered("(" + to_string(INVENTORY) + ") Go to Inventory", box_width);
+
+    // Print the bottom border
+    cout << string(box_width, '-') << endl;
 
 }
 int getAttackOption(){
@@ -82,18 +107,18 @@ int getAttackOption(){
     return userChoice;
 }
 void displayAttackOption(){
-      //Print options
-    cout << string(border_width, '-') <<endl;
-    cout << "|";
-    cout << setw(content_width - 18) << right << "(" << UP << ") Attack";
-    cout << "|" << endl;
-    cout << "|";
-    cout << setw(content_width - 18) << right << "(" << DOWN << ") Special Attack";
-    cout << "|" << endl;
-    cout << "|";
-    cout << setw(content_width - 18) << right << "(" << LEFT << ") Back";
-    cout << "|" << endl;
-    cout << string(border_width, '-') <<endl;
+    int box_width = border_width;  
+
+    // Print the top border
+    cout << string(box_width, '-') << endl;
+
+    printCentered("(" + to_string(ATTACK) + ") Attack", box_width);
+    printCentered("(" + to_string(SPECIAL_ATTACK) + ") Special Attack", box_width);
+    printCentered("(" + to_string(INVENTORY) + ") Go To Inventory", box_width);
+    printCentered("(" + to_string(BACK) + ") Back", box_width);
+
+    // Print the bottom border
+    cout << string(box_width, '-') << endl;
 }
 void displayBattleLog(Player &player, Enemy &enemy){
   //Displays the combat log until either player or enemy is alive
@@ -117,7 +142,7 @@ void displayBattleLog(Player &player, Enemy &enemy){
             player.takeDamage(enemy.attack());
             cout << enemy.getName() << " attacks with " << enemy.getAttackPower() << " attack power!" << endl;
             cout << "Player health: " << player.getHealth() << endl;
-        } else {
+        } else if(attackOption == SPECIAL_ATTACK){
             int specialDamage = player.getSpAttackPower();
             cout << player.getName() << " attacks with " << specialDamage << " special attack power!" << endl;
             enemy.takeDamage(specialDamage);
@@ -126,31 +151,130 @@ void displayBattleLog(Player &player, Enemy &enemy){
             player.takeDamage(enemy.attack());
             cout << enemy.getName() << " attacks with " << enemy.getAttackPower() << " attack power!" << endl;
             cout << "Player health: " << player.getHealth() << endl;
+        }else if(attackOption == INVENTORY)
+        {
+          displayInventoryOption(player);
         }
         if(!player.isAlive())
         {
           cout <<"[Insert END GAME MENU]" << endl;
-        }else if (!enemy.isAlive())
+        }else if (!enemy.isAlive() && player.getEnemyCounter() != 3) //Hard Coded for the player to defeat 3 enemies
         {
+          //Increase the enemy counter
+          int newCounter = player.getEnemyCounter() + 1;
+          player.setEnemyCounter(newCounter);
+        if(player.getEnemyCounter() == 3)
+        {
+          cout << "[INSERT END GAME MENU]" << endl;
+          return;
+        }
           displayAfterBattle(player, enemy);
         }
     } while (attackOption != BACK);
 }
-void displayInventoryOption(){
+int getInventoryOption(){
+    int userInvOption;
+    cin >> userInvOption;
+
+    if(userInvOption == 0)
+    {
+      return userInvOption;
+    }
+
+    if(userInvOption < 1 || userInvOption > 5)
+    {
+      cout << "Error please enter a valid choice within range." << endl;
+      getInventoryOption();
+    }
+
+    return userInvOption;
+}
+void displayInventoryOption(Player &player){
+  int userChoice;
+  do{
+  cout << string(border_width + 13, '-') <<endl;
+  cout << "|";
+  cout << setw(content_width - 9) << right << player.getName() << "'s Inventory!";
+  cout << "|" << endl;
+
+  player.displayInventory();
+
+
+    int box_width = 40; 
+
+    // Print the top border
+    cout << string(box_width, '-') << endl;
+
+    printCentered("(" + to_string(DELETE) + ") Delete an Item", box_width);
+    printCentered("(" + to_string(USE) + ") Use an Item", box_width);
+    printCentered("(" + to_string(SORT) + ") Sort your Inventory", box_width);
+    printCentered("(" + to_string(BACK) + ") Go Back", box_width);
+
+    // Print the bottom border
+    cout << string(box_width, '-') << endl;
+
+  userChoice = getInventoryOption();
+  switch (userChoice)
+  {
+  case DELETE:
+  { 
+    string newItem;
+    cout << "Enter an item to be deleted: ";
+    cin >> newItem;
+    player.removeItemFromInventory(newItem);
+  }
+    break;
+  case USE:
+    /*TBA DELETE FEATURE*/
+    break;
+  case SORT:
+  {
+    player.sortInventory();
+  }
+  
+  default:
+    break;
+  }
+
+
+  }while(userChoice != BACK);
 
 }
 void displayAfterBattle(Player &player, Enemy &enemy){
-  cout << string(border_width, '-') <<endl;
-  cout << "|";
-  cout << setw(content_width - 10) << right << "Nice work! " << player.getName();
-  cout << "|" << endl;
-  cout << "|";
-  cout << setw(content_width - 18) << right << "You have defeated a " << enemy.getName();
-  cout << "|" << endl;
-  cout << string(border_width, '-') <<endl;
+    int box_width = border_width;
+    // Print the top border
+    cout << string(box_width, '-') << endl;
+
+    // Print centered
+    printCentered("Nice work! " + player.getName(), box_width);
+    printCentered("You have defeated a " + enemy.getName(), box_width);
+
+    // Print the bottom border
+    cout << string(box_width, '-') << endl;
 
   //Get loot details from enemy
-  cout <<"You have recieved [Placeholder ITEM]" << "from: " << enemy.getName() << endl;
+  
+  Item lootItem = getRandomItem();
+    box_width = box_width + 30; //Account for the longer text
+    cout << string(box_width, '-') << endl;
+
+    // Print  centered
+    printCentered("Congrats! You have defeated an enemy!", box_width);
+    printCentered("You have received: " + lootItem.GetName(), box_width);
+    printCentered("Description: " + lootItem.GetDescription(), box_width);
+    printCentered("Amount: " + to_string(lootItem.GetAmount()), box_width);
+
+    // Print the bottom border
+    cout << string(box_width, '-') << endl;
+
+  //Ask if want to add to inventory or not
+  char userChoice;
+  cout <<"Want to Add To Inventory? Y/N: ";
+  cin >> userChoice;
+  if(userChoice == 'Y')
+  {
+    player.addItemToInventory(lootItem);
+  }
 
 }
 void displayEndGame();

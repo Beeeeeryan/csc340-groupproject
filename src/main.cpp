@@ -1,15 +1,26 @@
 // main.cpp
 
 #include <iostream>
+#include <string>
+#include <vector>
+#include <cstdlib> 
+#include <ctime>   
 #include "Character.h"
 #include "Player.h"
 #include "Enemy.h"
 #include "Grid.h"
 #include "UserInterface.h"
+#include "Inventory.h"
+#include "Item.h"
+#include "Node.h"
 
 using namespace std;
 
 
+// Generate a random number inclusive
+int getRandomValue(int min, int max) {
+    return rand() % (max - min + 1) + min;  
+}
 int getMenuChoice() {
     int userInput;
 
@@ -28,11 +39,18 @@ void unitTest() {
     Grid* grid = new Grid ();
     string playerName = "Player";
     string enemyName = "Enemy";
+    // Create some items
+    Item potion("Potion", "Restores 50 HP", 3);
+    Item sword("Sword", "A sharp blade", 1);
+    Item shield("Shield", "Protects from damage", 1);
+    // Create a vector of items
+    vector<Item> items = {potion, sword, shield};
 
-    Player player1(playerName, 100, 10, 3, 0, grid);
+    Player player1(playerName, 100, 10, 3, 0, items, grid);
+    player1.displayInventory();
     Enemy enemy(enemyName, 50, 5, 0, 3, grid);
 
- 
+    
     // Display player and enemy details
     cout << "-------- Testing Player Class! --------" << endl;
     cout << endl;
@@ -93,6 +111,28 @@ void unitTest() {
     player1.move(-1, 0);
     enemy.move(0, -1); 
 
+ 
+    cout << endl;
+    cout <<"Checking players inventory----------" << endl;
+    cout << endl;
+    cout <<"Player's inventory: "<< endl;
+    player1.displayInventory();
+    cout << endl;
+    cout <<"Checking add item in player inventory-------" << endl;
+    Item helmet("Helmet", "Shiny helmet", 1);
+    player1.addItemToInventory(helmet);
+    cout << endl;
+    cout << "Added checking player inventory-----" << endl;
+    player1.displayInventory();
+    cout << "Removing an item named Potion" << endl;
+    player1.removeItemFromInventory("Potion");
+    cout << "Displaying player inventory after deletion" << endl;
+    player1.displayInventory();
+    cout << "Test sorted inventory alphabetically" << endl;
+    player1.sortInventory();
+    player1.displayInventory();
+ 
+
 
     cout << "Unit Test Concluded!" <<endl;
     cout << endl;
@@ -124,7 +164,13 @@ void startGame() {
     Grid *grid =  new Grid();
     string playerName = "Player";
     string enemyName = "Enemy";
-    Player player(playerName, 100, 10, 3, 0, grid); //Starting pos bottom left
+    // Create some items
+    Item potion("Potion", "Restores 50 HP", 3);
+    Item sword("Sword", "A sharp blade", 1);
+    Item shield("Shield", "Protects from damage", 1);
+    // Create a vector of items
+    vector<Item> items = {potion, sword, shield};
+    Player player(playerName, 100, 10, 3, 0, items, grid); //Starting pos bottom left
     Enemy enemy(enemyName, 50, 5, 0, 3, grid); //Starting pos top right
     
 
@@ -132,12 +178,12 @@ void startGame() {
     {
         //What will always displays
         grid->displayGrid();
-        cout << "--------------------------------------------" << endl;
+        cout << "-------------------------------" << endl;
         displayMovementOption();
-        cout << "--------------------------------------------" << endl;
+        cout << "-------------------------------" << endl;
         cout << "Player health: " << player.getHealth() << endl;
         cout << "Enemy health: " << enemy.getHealth() << endl;
-        cout << "--------------------------------------------" << endl;
+        cout << "-------------------------------" << endl;
 
 
     
@@ -160,6 +206,9 @@ void startGame() {
         }else if (choice == RIGHT)
         {
             player.move(0, 1);
+        }else if(choice == INVENTORY)
+        {
+            displayInventoryOption(player);
         }
         
         
@@ -172,8 +221,17 @@ void startGame() {
           {
             //clear enemygrid position
             grid->clearPosition(enemy.getPositionX(), enemy.getPositionY());
-            //re-initialize the same enemy
-            enemy = Enemy(enemyName, 50, 5, 1, 3, grid);
+            //re-initialize the same enemy with a random position in the grid
+            do
+            {
+                srand(time(0));
+                int x = getRandomValue(0, 3);
+                int y = getRandomValue(0, 3);
+                cout << x << y << endl;
+                enemy = Enemy(enemyName, 50, 5, x, y, grid);
+                //Makes sure the positions arent overlapped and doesnt spawn right next to the player
+            } while (player.getPositionX() == enemy.getPositionX() && player.getPositionY() == enemy.getPositionY() && !(grid->areAdjacent(player.getPositionX(), player.getPositionY(), enemy.getPositionX(), enemy.getPositionY())));
+            
           }
         }
 

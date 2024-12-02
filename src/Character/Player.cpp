@@ -2,6 +2,9 @@
 
 #include "Player.h"
 #include "../Map/Grid.h"  // Include Grid class
+#include <string>
+#include <iostream>
+using namespace std;
 
 // Default Constructor
 Player::Player(Grid* grid) {
@@ -17,8 +20,7 @@ Player::Player(Grid* grid) {
     grid->setPlayerPosition(this->positionX, this->positionY);
 }
 
-// Parameterized Constructor
-Player::Player(std::string name, int health, int attackPower, int positionX, int positionY, Grid* grid) {
+Player::Player(string name, int health, int attackPower, int positionX, int positionY, const vector<Item>& items, Grid* grid) {
     this->name = name;
     this->health = health;
     this->attackPower = attackPower;
@@ -29,8 +31,15 @@ Player::Player(std::string name, int health, int attackPower, int positionX, int
     // Initialize Player-specific members
     this->specialAttack = attackPower;
 
+    // Initialize a player's inventory
+    // We use the vector of items passed to this constructor to initialize inventory
+    inventory =  new Inventory(items);  // Inventory takes ownership of items passed by reference
+
     // Set initial position on the grid
     grid->setPlayerPosition(this->positionX, this->positionY);
+}
+Player::~Player(){
+    delete inventory;
 }
 
 
@@ -40,6 +49,14 @@ int Player::attack() const {
 
 int Player::getSpAttackPower() const {
     return specialAttack.getSpAttackPower();  // Return the special attack power (int)
+}
+
+void Player::setEnemyCounter(int newEnemyCounter){
+    this->enemyCounter = newEnemyCounter;
+}
+int Player::getEnemyCounter() const
+{
+    return this->enemyCounter;
 }
 
 int Player::takeDamage(int damage) { // Polymorphism - override the takeDamage function from the Character class.
@@ -60,8 +77,21 @@ void Player::move(int x, int y) {
         positionX = newX;
         positionY = newY;
     } else {
-        std::cout << name << " cannot move to (" << newX << ", " << newY << ") - out of bounds!" << std::endl;
+        cout << name << " cannot move to (" << newX << ", " << newY << ") - out of bounds!" << endl;
     }
 
     grid->setPlayerPosition(positionX, positionY);
+}
+
+void Player::addItemToInventory(const Item& newItem){
+    inventory->addItem(newItem);
+}
+void Player::removeItemFromInventory(const string &itemName){
+    inventory->removeItem(itemName);
+}
+void Player::displayInventory() const {
+    inventory->displayInventory();
+}
+void Player::sortInventory(){
+    inventory->sortItems();
 }
