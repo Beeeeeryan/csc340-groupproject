@@ -106,13 +106,14 @@ void InventoryTest() {
     delete grid;
 }
 
-void BattleTest() {
-    cout << "-------- Testing Battle --------" << endl;
+void BattleTestPlayerWin() {
+    cout << "-------- Testing Battle (Player Win) --------" << endl;
     Grid* grid = new Grid();
     Player player("Player", 100, 10, 0, 0, {}, grid);
     player.setEnemyCounter(0);
     Enemy enemy("Enemy", 50, 5, 0, 2, grid);
     player.move(1, 0);
+    displayBattleLog(player, enemy);
 
     int initialPlayerHealth = player.getHealth();
     int initialEnemyHealth = enemy.getHealth();
@@ -143,6 +144,28 @@ void BattleTest() {
     std::cout << "Enemy counter test passed." << std::endl;
 
     std::cout << "Battle test completed successfully!" << std::endl;
+    delete grid;
+}
+
+void BattleTestPlayerDead() {
+    cout << "-------- Testing Battle (Player Lose) --------" << endl;
+    Grid* grid = new Grid();
+    Player player("Player", 1, 10, 0, 0, {}, grid);
+    player.setEnemyCounter(0);
+    Enemy enemy("Enemy", 50, 5, 0, 2, grid);
+    player.move(1, 0);
+    displayBattleLog(player, enemy);
+
+    cout << "Testing Enemy attacks..." << std::endl;
+
+    int enemyDamage = enemy.attack();
+    player.takeDamage(enemyDamage);
+
+    assert(!player.isAlive());
+    std::cout << "Player is dead test passed." << std::endl;
+
+    std::cout << "Battle test completed successfully!" << std::endl;
+    delete grid;
 }
 
 void unitTest() {
@@ -153,6 +176,7 @@ void unitTest() {
     GridTest();
     MovementTest();
     InventoryTest();
-    BattleTest();
+    BattleTestPlayerWin();
+    BattleTestPlayerDead();
     cout << "======== Unit Tests Completed ========" << endl;
 }
