@@ -5,14 +5,32 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Item.h"
+#include "UserInterface.h"
 
 using namespace std;
 
 void ItemTest() {
     cout << "-------- Testing Item Class! --------" << endl;
-    Item potion("Potion", "Restores 50 HP", 3);
-    Item sword("Sword", "A sharp blade", 1);
-    Item shield("Shield", "Protects from damage", 1);
+        std::vector<Item> Itemtesting = {
+        Item("Health Potion", "Restores 50 HP", 1),
+        Item("Mana Potion", "Restores 30 MP", 1),
+        Item("Gold Coin", "A shiny gold coin", 10),
+        Item("Magic Scroll", "Contains an ancient spell", 1),
+        Item("Magic Scroll", "Contains an ancient spell", 1),
+        Item("Iron Sword", "A sturdy weapon with extra damage", 1),
+        Item("Shield", "Provides extra defense in battle", 1)
+    };
+
+    for (const Item& item : Itemtesting) {
+        std::cout << "Name: " << item.GetName() << std::endl;
+        std::cout << "Description: " << item.GetDescription() << std::endl;
+        std::cout << "Quantity: " << item.GetAmount() << std::endl;
+        std::cout << "-------------------------------" << std::endl;
+    }
+}
+
+void LootItemTest() {
+
 }
 
 void PlayerTest() {
