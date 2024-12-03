@@ -28,8 +28,7 @@
 │   ├── /UI
 │   │   ├── UserInterface.h          # UI class header
 │   │   ├── UserInterface.cpp        # UI class implementation
-│   │   └── main.cpp                 # Main entry point of the program, contains the unit tests
-|
+|   └── main.cpp                     # Main entry point of the program, contains the unit tests
 ├── .vscode                          # VS Code configuration files
 │   ├── tasks.json                   # Task configuration for building the project
 │   ├── c_cpp_properties.json        # IntelliSense and includes for C++
