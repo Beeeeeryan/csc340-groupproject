@@ -7,6 +7,7 @@ void EnemyTest();
 void GridTest();
 void MovementTest();
 void InventoryTest();
+void BattleTest();
 void unitTest();
 
 #endif

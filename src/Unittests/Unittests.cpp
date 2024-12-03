@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cassert>
 #include "Grid.h"
 #include "Player.h"
 #include "Enemy.h"
@@ -105,6 +106,45 @@ void InventoryTest() {
     delete grid;
 }
 
+void BattleTest() {
+    cout << "-------- Testing Battle --------" << endl;
+    Grid* grid = new Grid();
+    Player player("Player", 100, 10, 0, 0, {}, grid);
+    player.setEnemyCounter(0);
+    Enemy enemy("Enemy", 50, 5, 0, 2, grid);
+    player.move(1, 0);
+
+    int initialPlayerHealth = player.getHealth();
+    int initialEnemyHealth = enemy.getHealth();
+
+    cout << "Testing Player and Enemy attacks..." << std::endl;
+
+    int playerDamage = player.attack();
+    enemy.takeDamage(playerDamage);
+    assert(enemy.getHealth() == initialEnemyHealth - playerDamage);
+    cout << "Player attack test passed." << std::endl;
+
+    int enemyDamage = enemy.attack();
+    player.takeDamage(enemyDamage);
+    assert(player.getHealth() == initialPlayerHealth - enemyDamage);
+    cout << "Enemy attack test passed." << std::endl;
+
+    cout << "Testing special attack..." << std::endl;
+    int specialDamage = player.getSpAttackPower();
+    enemy.takeDamage(specialDamage);
+    assert(enemy.getHealth() <= 0); // Enemy Dead?
+    cout << "Special attack test passed." << std::endl;
+
+    assert(player.isAlive());
+    std::cout << "Player is alive test passed." << std::endl;
+
+    player.setEnemyCounter(player.getEnemyCounter() + 1);
+    assert(player.getEnemyCounter() == 1); // Check that the counter updated correctly
+    std::cout << "Enemy counter test passed." << std::endl;
+
+    std::cout << "Battle test completed successfully!" << std::endl;
+}
+
 void unitTest() {
     cout << "======== Running Unit Tests ========" << endl;
     ItemTest();
@@ -113,5 +153,6 @@ void unitTest() {
     GridTest();
     MovementTest();
     InventoryTest();
+    BattleTest();
     cout << "======== Unit Tests Completed ========" << endl;
 }
