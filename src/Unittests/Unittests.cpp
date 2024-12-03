@@ -12,7 +12,7 @@ using namespace std;
 
 void ItemTest() {
     cout << "-------- Testing Item Class! --------" << endl;
-        std::vector<Item> Itemtesting = {
+        std::vector<Item> Itemtesting = { // It would be easier to test this if the items were global so I don't have to hardcode this, but it should work for now
         Item("Health Potion", "Restores 50 HP", 1),
         Item("Mana Potion", "Restores 30 MP", 1),
         Item("Gold Coin", "A shiny gold coin", 10),
@@ -106,7 +106,7 @@ void InventoryTest() {
     delete grid;
 }
 
-void BattleTestPlayerWin() {
+void BattleTestPlayerWin() { //might change this if attack and special attack are changed to be in a function, but should work
     cout << "-------- Testing Battle (Player Win) --------" << endl;
     Grid* grid = new Grid();
     Player player("Player", 100, 10, 0, 0, {}, grid);
@@ -147,7 +147,7 @@ void BattleTestPlayerWin() {
     delete grid;
 }
 
-void BattleTestPlayerDead() {
+void BattleTestPlayerDead() { //same as above but player loses, prob have to edit this when a proper game over menu is added
     cout << "-------- Testing Battle (Player Lose) --------" << endl;
     Grid* grid = new Grid();
     Player player("Player", 1, 10, 0, 0, {}, grid);
