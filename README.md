@@ -1,5 +1,3 @@
-Here’s a more organized and visually friendly version of your instructions:
-
 ---
 
 ## Project Structure
