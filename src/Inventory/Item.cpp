@@ -7,13 +7,15 @@ Item::Item(){
   ItemName = "Unknown";
   ItemName = "No description available";
   ItemAmount = 0;
+  ItemAffect = 0;
 }
 
-Item::Item(const string& ItemName, const string& ItemDesc, int ItemAmount)
+Item::Item(const string& ItemName, const string& ItemDesc, int ItemAmount, int ItemAffect)
 {
   this->ItemName = ItemName;
   this->ItemDescription = ItemDesc;
   this->ItemAmount = ItemAmount;
+  this->ItemAffect = ItemAffect;
 }
 
 Item::~Item() {}
@@ -24,7 +26,9 @@ Item::~Item() {}
  string Item::GetDescription() const { 
     return this->ItemDescription; 
 }
-
+int Item::GetItemAffect() const{
+    return this->ItemAffect;
+}
 
 int Item::GetAmount() const { 
     return this->ItemAmount; 

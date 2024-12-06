@@ -31,6 +31,7 @@ public:
     int getAttackPower() const;
     Position getPosition() const;
     int getHealth() const;
+    void setHealth(int health);
     int getPositionX() const;
     int getPositionY() const;
     

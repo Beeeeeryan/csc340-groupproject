@@ -61,6 +61,9 @@ int Character::getPositionY() const {
 int Character::getHealth() const {
     return health;
 }
+void Character::setHealth(int health){
+    this->health = health;
+}
 
 int Character::attack() const {
     std::cout << name << " attacks with " << attackPower << " attack power!" << std::endl;

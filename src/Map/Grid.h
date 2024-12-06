@@ -9,8 +9,8 @@
 class Grid {
 private:
     int** grid;  // Pointer to dynamically allocated 2D array
-    static const int rows = 4;
-    static const int cols = 4;
+    static const int rows = 8;
+    static const int cols = 8;
 
 public:
     Grid();

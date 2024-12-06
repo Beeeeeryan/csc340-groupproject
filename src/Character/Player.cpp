@@ -1,7 +1,7 @@
 // Player.cpp
 
 #include "Player.h"
-#include "../Map/Grid.h"  // Include Grid class
+#include "../Map/Grid.h"
 #include <string>
 #include <iostream>
 using namespace std;
@@ -20,7 +20,7 @@ Player::Player(Grid* grid) {
     grid->setPlayerPosition(this->positionX, this->positionY);
 }
 
-Player::Player(string name, int health, int attackPower, int positionX, int positionY, const vector<Item>& items, Grid* grid) {
+Player::Player(string name, int health, int attackPower, int armour, int positionX, int positionY, const vector<Item>& items, Grid* grid) {
     this->name = name;
     this->health = health;
     this->attackPower = attackPower;
@@ -30,6 +30,7 @@ Player::Player(string name, int health, int attackPower, int positionX, int posi
 
     // Initialize Player-specific members
     this->specialAttack = attackPower;
+    this->armour = armour;
 
     // Initialize a player's inventory
     // We use the vector of items passed to this constructor to initialize inventory
@@ -57,6 +58,15 @@ void Player::setEnemyCounter(int newEnemyCounter){
 int Player::getEnemyCounter() const
 {
     return this->enemyCounter;
+}
+void Player::setArmour(int armour){
+    this->armour = armour;
+}
+int Player::getArmour() const{
+    return this->armour;
+}
+void Player::setPlayerHealth(int health){
+    this->health = health;
 }
 
 int Player::takeDamage(int damage) { // Polymorphism - override the takeDamage function from the Character class.
@@ -94,4 +104,10 @@ void Player::displayInventory() const {
 }
 void Player::sortInventory(){
     inventory->sortItems();
+}
+void Player::useItemFromInventory(Player &player, const string& itemName){
+    Item* targetItem = inventory->searchItem(itemName);
+    bool found = inventory->useItem(*targetItem, player);
+    if(!found)
+        cout << "Sorry couldn't find your item" << endl;
 }
