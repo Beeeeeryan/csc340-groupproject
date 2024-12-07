@@ -44,10 +44,14 @@ void displayInventoryOption(Player& player);
 void displayAfterBattle(Player &player, Enemy &enemy);
 void displayBattleLog(Player &player, Enemy  &enemy);
 void displayEndGame();
+void displayLossGame();
 int getMovementOption();
 int getAttackOption();
 int getInventoryOption();
 void printCentered(const std::string& text, int box_width);
+void printPlayerTurn(const std::string& playerName, int playerAttackPower, int playerHealth, int enemyHealth);
+void printEnemyTurn(const std::string& enemyName, int enemyAttackPower, int playerHealth, int enemyHealth);
+Enemy getRandomEnemy(Grid* grid);
 
 
 #endif

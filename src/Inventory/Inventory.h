@@ -5,6 +5,8 @@
 #include <string>
 #include <vector>
 
+class Player;
+
 //Linked List class Inventory
 class Inventory{
   private:
@@ -20,6 +22,10 @@ class Inventory{
     void addItem(const Item& newItem);
     void removeItem(const std::string& itemName);
     void sortItems();
+ 
+  bool useItem( Item& targetItem, Player &player);
+  Item* searchItem(const std::string& itemName);
+
     void displayInventory()const;
 };
 
