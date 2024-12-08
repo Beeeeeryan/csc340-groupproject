@@ -18,7 +18,7 @@ using namespace std;
 
  void ItemTest() {
     cout << "-------- Testing Item Class! --------" << endl;
-        std::vector<Item> Itemtesting = { // It would be easier to test this if the items were global so I don't have to hardcode this, but it should work for now
+        vector<Item> Itemtesting = { // It would be easier to test this if the items were global so I don't have to hardcode this, but it should work for now
         Item("Health Potion", "Restores 50 HP", 1, 50),
         Item("Mana Potion", "Restores 30 MP", 1, 30),
         Item("Gold Coin", "A shiny gold coin", 10, 20),
@@ -29,10 +29,10 @@ using namespace std;
     };
 
     for (const Item& item : Itemtesting) {
-        std::cout << "Name: " << item.GetName() << std::endl;
-        std::cout << "Description: " << item.GetDescription() << std::endl;
-        std::cout << "Quantity: " << item.GetAmount() << std::endl;
-        std::cout << "-------------------------------" << std::endl;
+        cout << "Name: " << item.GetName() << endl;
+        cout << "Description: " << item.GetDescription() << endl;
+        cout << "Quantity: " << item.GetAmount() << endl;
+        cout << "-------------------------------" << endl;
     }
 
     cout << "-------- Testing Item Functionality! --------" << endl;
@@ -45,11 +45,11 @@ using namespace std;
 
     player.useItemFromInventory(player, "Potion");
     assert(player.getHealth() == initialPlayerHealth + 50);
-    cout << "Potion test passed." << std::endl;
+    cout << "Potion test passed." << endl;
 
     player.useItemFromInventory(player, "Shield");
     assert(player.getArmour() == initialPlayerArmor + 1);
-    cout << "Armor test passed." << std::endl;
+    cout << "Armor test passed." << endl;
 
 } 
 
@@ -137,32 +137,32 @@ void BattleTestPlayerWin() { //might change this if attack and special attack ar
     int initialPlayerHealth = player.getHealth();
     int initialEnemyHealth = enemy.getHealth();
 
-    cout << "Testing Player and Enemy attacks..." << std::endl;
+    cout << "Testing Player and Enemy attacks..." << endl;
 
     int playerDamage = player.attack();
     enemy.takeDamage(playerDamage);
     assert(enemy.getHealth() == initialEnemyHealth - playerDamage);
-    cout << "Player attack test passed." << std::endl;
+    cout << "Player attack test passed." << endl;
 
     int enemyDamage = enemy.attack();
     player.takeDamage(enemyDamage);
     assert(player.getHealth() == initialPlayerHealth - enemyDamage);
-    cout << "Enemy attack test passed." << std::endl;
+    cout << "Enemy attack test passed." << endl;
 
-    cout << "Testing special attack..." << std::endl;
+    cout << "Testing special attack..." << endl;
     int specialDamage = player.getSpAttackPower();
     enemy.takeDamage(specialDamage);
     assert(enemy.getHealth() <= 0); // Enemy Dead?
-    cout << "Special attack test passed." << std::endl;
+    cout << "Special attack test passed." << endl;
 
     assert(player.isAlive());
-    std::cout << "Player is alive test passed." << std::endl;
+    cout << "Player is alive test passed." << endl;
 
     player.setEnemyCounter(player.getEnemyCounter() + 1);
     assert(player.getEnemyCounter() == 1); // Check that the counter updated correctly
-    std::cout << "Enemy counter test passed." << std::endl;
+    cout << "Enemy counter test passed." << endl;
 
-    std::cout << "Battle test completed successfully!" << std::endl;
+    cout << "Battle test completed successfully!" << endl;
     delete grid;
 }
 
@@ -175,16 +175,23 @@ void BattleTestPlayerDead() { //same as above but player loses, prob have to edi
     player.move(1, 0);
     displayBattleLog(player, enemy);
 
-    cout << "Testing Enemy attacks..." << std::endl;
+    cout << "Testing Enemy attacks..." << endl;
 
     int enemyDamage = enemy.attack();
     player.takeDamage(enemyDamage);
 
     assert(!player.isAlive());
-    std::cout << "Player is dead test passed." << std::endl;
+    cout << "Player is dead test passed." << endl;
 
-    std::cout << "Battle test completed successfully!" << std::endl;
+    cout << "Battle test completed successfully!" << endl;
     delete grid;
+}
+
+void EndGameMenuTest() {
+    cout << "-------- Testing End Game Menus --------" << endl;
+    displayEndGame();
+    displayLossGame();
+    cout << "Done." << endl;
 }
 
 void unitTest() {

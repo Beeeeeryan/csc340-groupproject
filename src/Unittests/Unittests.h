@@ -12,9 +12,9 @@ void EnemyTest();
 void GridTest();
 void MovementTest();
 void InventoryTest();
-void PotionTest();
 void BattleTestPlayerWin();
 void BattleTestPlayerDead();
+void EndGameMenuTest();
 void unitTest();
 
 #endif
