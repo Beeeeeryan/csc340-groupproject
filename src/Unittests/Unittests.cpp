@@ -16,16 +16,16 @@
 
 using namespace std;
 
-/* void ItemTest() {
+ void ItemTest() {
     cout << "-------- Testing Item Class! --------" << endl;
         std::vector<Item> Itemtesting = { // It would be easier to test this if the items were global so I don't have to hardcode this, but it should work for now
-        Item("Health Potion", "Restores 50 HP", 1),
-        Item("Mana Potion", "Restores 30 MP", 1),
-        Item("Gold Coin", "A shiny gold coin", 10),
-        Item("Magic Scroll", "Contains an ancient spell", 1),
-        Item("Magic Scroll", "Contains an ancient spell", 1),
-        Item("Iron Sword", "A sturdy weapon with extra damage", 1),
-        Item("Shield", "Provides extra defense in battle", 1)
+        Item("Health Potion", "Restores 50 HP", 1, 50),
+        Item("Mana Potion", "Restores 30 MP", 1, 30),
+        Item("Gold Coin", "A shiny gold coin", 10, 20),
+        Item("Magic Scroll", "Contains an ancient spell", 1, 20),
+        Item("Magic Scroll", "Contains an ancient spell", 1, 20),
+        Item("Iron Sword", "A sturdy weapon with extra damage", 1, 20),
+        Item("Shield", "Provides extra defense in battle", 1, 20)
     };
 
     for (const Item& item : Itemtesting) {
@@ -34,24 +34,37 @@ using namespace std;
         std::cout << "Quantity: " << item.GetAmount() << std::endl;
         std::cout << "-------------------------------" << std::endl;
     }
-} */
 
-void LootItemTest() {
+    cout << "-------- Testing Item Functionality! --------" << endl;
 
-}
+    Grid* grid = new Grid();
+    vector<Item> items = {Item("Potion", "Restores 50 HP", 1, 50), Item("Shield", "Protects from damage", 1, 1)};
+    Player player("Player", 100, 10, 5, 3, 0, items, grid); 
+    int initialPlayerHealth = player.getHealth();
+    int initialPlayerArmor = player.getArmour();
 
- /* void PlayerTest() {
+    player.useItemFromInventory(player, "Potion");
+    assert(player.getHealth() == initialPlayerHealth + 50);
+    cout << "Potion test passed." << std::endl;
+
+    player.useItemFromInventory(player, "Shield");
+    assert(player.getArmour() == initialPlayerArmor + 1);
+    cout << "Armor test passed." << std::endl;
+
+} 
+
+  void PlayerTest() {
     cout << "-------- Testing Player Class! --------" << endl;
     Grid* grid = new Grid();
-    vector<Item> items = {Item("Potion", "Restores 50 HP", 3), Item("Sword", "A sharp blade", 1), Item("Shield", "Protects from damage", 1)};
-    Player player("Player", 100, 10, 3, 0, items, grid); 
+    vector<Item> items = {Item("Potion", "Restores 50 HP", 3, 20), Item("Sword", "A sharp blade", 1, 20), Item("Shield", "Protects from damage", 1, 20)};
+    Player player("Player", 100, 10, 5, 3, 0, items, grid); 
 
     cout << "Player Name: " << player.getName() << endl;
     cout << "Health: " << player.getHealth() << ", Attack Power: " << player.getAttackPower() << endl;
     cout << "Position: (" << player.getPosition().x << ", " << player.getPosition().y << ")" << endl;
 
     delete grid;
-} */
+} 
 
 void EnemyTest() {
     cout << "-------- Testing Enemy Class! --------" << endl;
@@ -74,7 +87,7 @@ void GridTest() {
 void MovementTest() {
     cout << "-------- Testing Movement --------" << endl;
     Grid* grid = new Grid();
-    Player player("Player", 100, 10, 3, 0, {}, grid);
+    Player player("Player", 100, 10, 5, 3, 0, {}, grid);
     Enemy enemy("Enemy", 50, 5, 0, 3, grid);
 
     cout << "Initial Positions: Player (" << player.getPosition().x << ", " << player.getPosition().y << "), "
@@ -91,13 +104,13 @@ void MovementTest() {
 void InventoryTest() {
     cout << "-------- Testing Inventory Operations --------" << endl;
     Grid* grid = new Grid();
-    vector<Item> items = {Item("Potion", "Restores 50 HP", 3), Item("Sword", "A sharp blade", 1), Item("Shield", "Protects from damage", 1)};
-    Player player("Player", 100, 10, 3, 0, items, grid);
+    vector<Item> items = {Item("Potion", "Restores 50 HP", 3, 50), Item("Sword", "A sharp blade", 1, 50), Item("Shield", "Protects from damage", 1, 50)};
+    Player player("Player", 100, 10, 5, 3, 0, items, grid);
 
     cout << "Initial Inventory: " << endl;
     player.displayInventory();
 
-    player.addItemToInventory(Item("Helmet", "Shiny helmet", 1));
+    player.addItemToInventory(Item("Helmet", "Shiny helmet", 1, 50));
     cout << "After Adding Helmet: " << endl;
     player.displayInventory();
 
@@ -115,7 +128,7 @@ void InventoryTest() {
 void BattleTestPlayerWin() { //might change this if attack and special attack are changed to be in a function, but should work
     cout << "-------- Testing Battle (Player Win) --------" << endl;
     Grid* grid = new Grid();
-    Player player("Player", 100, 10, 0, 0, {}, grid);
+    Player player("Player", 100, 10, 5, 0, 0, {}, grid);
     player.setEnemyCounter(0);
     Enemy enemy("Enemy", 50, 5, 0, 2, grid);
     player.move(1, 0);
@@ -156,7 +169,7 @@ void BattleTestPlayerWin() { //might change this if attack and special attack ar
 void BattleTestPlayerDead() { //same as above but player loses, prob have to edit this when a proper game over menu is added
     cout << "-------- Testing Battle (Player Lose) --------" << endl;
     Grid* grid = new Grid();
-    Player player("Player", 1, 10, 0, 0, {}, grid);
+    Player player("Player", 1, 10, 5, 0, 0, {}, grid);
     player.setEnemyCounter(0);
     Enemy enemy("Enemy", 50, 5, 0, 2, grid);
     player.move(1, 0);
