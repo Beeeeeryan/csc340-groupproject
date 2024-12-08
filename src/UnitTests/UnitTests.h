@@ -13,6 +13,7 @@ void GridTest();
 void MovementTest();
 void InventoryTest();
 void BattleTestPlayerWin();
+void BattleTestPlayerDead();
 void unitTest();
 
 #endif
