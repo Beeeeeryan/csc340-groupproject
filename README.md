@@ -3,6 +3,20 @@
 
 # CSC340 Group Project
 
+## Authors:
+
+- Bryan Bernardo - Beeeeeryan
+- Francis Gibson IV - FMGIV 
+- Tony Wu - ThatCodeByTony
+- Junhui Zhong - Swarm4Neuro
+
+
+## Summary
+
+This group project aims to create a basic emulation of a classic genre of a game in the video game industry, Tactical Role-Playing Games(TRPGS for short). The aim for creating this game application is to apply certain principles and ideas this group has learned throughout the semester. Contextually speaking, TRPGS are designed as turn-based combat, character development, and a linear progression type of game. Controlling a character on grid-based movement makes the game interactive for players.  Turned Base Combat allows players to take turns moving a character, executing certain actions based on strategy, resource management, and other factors. Lastly, a linear progression feature allows players to have a definitive goal which can include text based dialogue interactivity. Our hope for creating a simple prototype of a game is through utilizing inheritance, composition, and a OOP design while using the Linked List/Node Data Structure. 
+
+---
+
 ## Project Structure
 
 ```
@@ -346,3 +360,25 @@ printCentered(const string& text, int box_width); // Prints text centered within
    - **Player** and **Enemy** **inherit** from **Character**, allowing them to be treated as **Character** objects. Methods like `attack()`, `takeDamage()`, and `move()` are **overridden** in both **Player** and **Enemy**
 
 ---
+
+### **Inventory Class Functions:**
+
+- **`sortItems()`**: 
+   - This function sorts the inventory items alphabetically or by some other criteria (like item type or quantity). The exact sorting mechanism depends on the specific implementation in your code, but typically it can use a sorting algorithm (like quicksort or mergesort) to reorder the items in the inventory.
+   
+   Example:
+   ```cpp
+   Inventory.sortItems();  // Sorts items in the inventory alphabetically by name
+   ```
+
+- **`removeItem(itemName)`**:
+   - This function removes an item from the inventory based on its name. Typically, this involves traversing the linked list of inventory nodes, finding the item by name, and deleting the corresponding node.
+   
+   Example:
+   ```cpp
+   Inventory.removeItem("Health Potion");  // Removes the "Health Potion" from the inventory
+   ```
+
+Both of these methods enhance the functionality of the inventory system, providing ways to keep it organized and manageable by allowing the user to delete or sort items as necessary.
+
+These functionalities (sort and delete) are often implemented in the `Inventory` class, which internally manipulates a linked list of `Node` objects, where each `Node` contains an `Item`.
