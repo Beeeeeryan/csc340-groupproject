@@ -1,4 +1,7 @@
 
+---
+
+# CSC340 Group Project
 
 ## Project Structure
 
@@ -19,22 +22,28 @@
 │   │   ├── Inventory.h              # Linked list for inventory items
 │   │   ├── Inventory.cpp            # Inventory management implementation
 │   │   ├── Item.h                   # Item class (represents an individual item)
-│   │   └── Item.cpp                 # Item class implementation
+│   │   ├── Item.cpp                 # Item class implementation
+│   │   ├── Node.h                   # Node class for inventory items
+│   │   └── Node.cpp                 # Node class implementation
 │   ├── /Map
 │   │   ├── Grid.h                   # Grid/map class header
-│   │   ├── Grid.cpp                 # Grid/map class functionality
-│   │   ├── Node.h                   # Node class for grid nodes
-│   │   └── Node.cpp                 # Node class implementation
+│   │   └── Grid.cpp                 # Grid/map class functionality
 │   ├── /UI
 │   │   ├── UserInterface.h          # UI class header
-│   │   ├── UserInterface.cpp        # UI class implementation
-|   └── main.cpp                     # Main entry point of the program, contains the unit tests
+│   │   └── UserInterface.cpp        # UI class implementation
+│   ├── /UnitTests
+│   │   ├── UnitTests.h              # Header for unit tests
+│   │   └── UnitTests.cpp            # Implementation for unit tests
+│   └── main.cpp                     # Main entry point of the program, contains the unit tests
 ├── .vscode                          # VS Code configuration files
 │   ├── tasks.json                   # Task configuration for building the project
 │   ├── c_cpp_properties.json        # IntelliSense and includes for C++
 │   ├── launch.json                  # Debugger configuration
 │   └── settings.json                # VS Code settings
+├── .gitignore                       # Git ignore file
+├── main                             # Compiled executable
 ├── README.md                        # Project documentation or notes
+
 ```
 
 ---
@@ -52,10 +61,7 @@
       - Search for and install **C/C++** in the Extensions panel of VS Code.
 
 2. **Create/Update Configuration Files**:
-   - In the .vscode folder, create or update the jsons with the following:
-
-   - **`tasks.json`**: 
-     - For building the project using `g++` with the necessary paths.
+   - In the `.vscode` folder, create or update the JSONs with the following configurations:
 
    ### `tasks.json`
 
@@ -73,6 +79,7 @@
                    "-I", "${workspaceFolder}/src/Map",
                    "-I", "${workspaceFolder}/src/UI",
                    "-I", "${workspaceFolder}/src/Inventory",
+                   "-I", "${workspaceFolder}/src/UnitTests",
                    "${workspaceFolder}/src/main.cpp",
                    "${workspaceFolder}/src/Character/Character.cpp",
                    "${workspaceFolder}/src/Character/Player.cpp",
@@ -82,6 +89,8 @@
                    "${workspaceFolder}/src/UI/UserInterface.cpp",
                    "${workspaceFolder}/src/Inventory/Item.cpp",
                    "${workspaceFolder}/src/Inventory/Inventory.cpp",
+                   "${workspaceFolder}/src/Inventory/Node.cpp", 
+                   "${workspaceFolder}/src/UnitTests/UnitTests.cpp",
                    "-o",
                    "${workspaceFolder}/main"
                ],
@@ -95,11 +104,6 @@
        ]
    }
    ```
-
-
-   - **`c_cpp_properties.json`**: 
-     - IntelliSense and include path settings for your C++ files.
-
 
    ### `c_cpp_properties.json`
 
@@ -129,9 +133,6 @@
        ]
    }
    ```
-
-   - **`launch.json`**: 
-     - Debug configuration for running your program with `gdb`.
 
    ### `launch.json`
 
@@ -168,9 +169,6 @@
    }
    ```
 
-   - **`settings.json`**: 
-     - Custom settings for the C++ compiler and IntelliSense.
-
    ### `settings.json`
 
    ```json
@@ -190,8 +188,6 @@
        "C_Cpp_Runner.msvcBatchPath": ""
    }
    ```
-
----
 
 3. **Build the Program**:
    - Press `Ctrl+Shift+B` or go to **Terminal > Run Build Task**.
@@ -297,6 +293,7 @@ getAttackOption();                         // Gets the user's choice for attack 
 getInventoryOption();                      // Gets the user's inventory option choice (Getter/Method)
 printCentered(const string& text, int box_width); // Prints text centered within a box (Method)
 ```
+
 ---
 
 ### **Inheritance:**
@@ -348,6 +345,4 @@ printCentered(const string& text, int box_width); // Prints text centered within
 1. **Player and Enemy**:
    - **Player** and **Enemy** **inherit** from **Character**, allowing them to be treated as **Character** objects. Methods like `attack()`, `takeDamage()`, and `move()` are **overridden** in both **Player** and **Enemy**
 
---- 
-
-
+---
