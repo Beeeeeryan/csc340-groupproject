@@ -330,7 +330,6 @@ printCentered(const string& text, int box_width); // Prints text centered within
 
 3. **Inventory**:
    - **Has** `Node` objects.
-   - **Each Node has** an `Item`.
 
 4. **Node**:
    - **Has** an `Item`.
@@ -340,8 +339,8 @@ printCentered(const string& text, int box_width); // Prints text centered within
 ### **Communication Between Classes:**
 
 1. **Player and Grid/Enemy**:
-   - **Player** communicates with **Grid** to set and retrieve its position using methods like `setPlayerPosition()` and `getPlayerPosition()`.
-   - **Player** and **Enemy** also interact during combat using methods like `attack()`, `takeDamage()`, and `isAlive()`. Both **Player** and **Enemy** rely on the **Grid** to manage their positions.
+   - **Player** and **Enemy** communicate with **Grid** to set and retrieve their positions using methods like `setPlayerPosition()` and `getEnemyPosition()`.
+
 
 2. **Player and Inventory**:
    - **Player** communicates with **Inventory** to manage items using methods like `addItemToInventory()`, `removeItemFromInventory()`, `displayInventory()`, and `sortInventory()`.
@@ -364,7 +363,7 @@ printCentered(const string& text, int box_width); // Prints text centered within
 ### **Inventory Class Functions:**
 
 - **`sortItems()`**: 
-   - This function sorts the inventory items alphabetically or by some other criteria (like item type or quantity). The exact sorting mechanism depends on the specific implementation in your code, but typically it can use a sorting algorithm (like quicksort or mergesort) to reorder the items in the inventory.
+   - This function sorts the inventory items alphabetically.
    
    Example:
    ```cpp
@@ -372,13 +371,10 @@ printCentered(const string& text, int box_width); // Prints text centered within
    ```
 
 - **`removeItem(itemName)`**:
-   - This function removes an item from the inventory based on its name. Typically, this involves traversing the linked list of inventory nodes, finding the item by name, and deleting the corresponding node.
+   - This function involves traversing the linked list of inventory nodes, finding the item by name, and deleting the corresponding node.
    
    Example:
    ```cpp
    Inventory.removeItem("Health Potion");  // Removes the "Health Potion" from the inventory
    ```
 
-Both of these methods enhance the functionality of the inventory system, providing ways to keep it organized and manageable by allowing the user to delete or sort items as necessary.
-
-These functionalities (sort and delete) are often implemented in the `Inventory` class, which internally manipulates a linked list of `Node` objects, where each `Node` contains an `Item`.
