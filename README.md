@@ -314,7 +314,7 @@ printCentered(const string& text, int box_width); // Prints text centered within
 
 1. **Player** and **Enemy**:
    - Both **inherit** from **Character** (Abstract class).
-   - **Character** serves as a base class, providing common properties and methods (e.g., `attack()`, `takeDamage()`, `move()`).
+   - **Character** serves as a base class, providing common properties and methods (e.g., `std::string name`, `int health`, `move()`).
 
 ---
 
