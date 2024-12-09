@@ -5,6 +5,7 @@
 #include <ctime>
 #include <thread>   // For delay
 #include <chrono>   
+#include <cctype>  // For toupper()
 #include "UserInterface.h"
 #include "Character.h"
 #include "Enemy.h"
@@ -142,42 +143,49 @@ void displayStartGame(){
     cout << string(box_width, '-') << endl;
 
 }
-int getMovementOption(){
-  int userChoice;
-  cin >> userChoice;
+int getMovementOption() {
+    string userInput;
+    cin >> userInput;
 
-  // Check if input was successful
-    if (cin.fail()) {  // If cin fails to read an integer
-            cin.clear();  // Clear the error state
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');  // Discard invalid input
-            cout << "Invalid input. Please enter a valid integer.\n";
-            return getMovementOption();
+    // Ensure input is a single character
+    if (userInput.length() == 1) {
+        char userChoice = toupper(userInput[0]);  // Convert input to uppercase
+
+        // Check if the input is one of the valid movement keys or 'quit' key
+        if (userChoice == UP || userChoice == DOWN || userChoice == LEFT || userChoice == RIGHT || userChoice == QUIT) {
+            return userChoice;
+        }
     }
-  if(userChoice > 5 || userChoice <= -1 )
-  {
-    cout << "Error please enter a valid choice within range." << endl;
-    getMovementOption();
-  }
-  return userChoice;
-}
-void displayMovementOption(){
 
+    // Check if input is numeric (only 0 or 5 are valid)
+    if (userInput.length() == 1 && isdigit(userInput[0])) {
+        int numericChoice = userInput[0] - '0';  // Convert char to integer
+        if (numericChoice == QUIT || numericChoice == 5) {
+            return numericChoice;
+        }
+    }
+
+    // If input is invalid
+    cout << "Error: Please enter a valid option (W, A, S, D, 5, 0).\n";
+    return getMovementOption();  // Recursively ask for input again
+}
+
+void displayMovementOption() {
     int box_width = border_width;  
 
     // Print the top border
     cout << string(box_width, '-') << endl;
 
-    // Print movement options centered
-    printCentered("(" + to_string(UP) + ") Move Up One Tile", box_width);
-    printCentered("(" + to_string(DOWN) + ") Move Down One Tile", box_width);
-    printCentered("(" + to_string(LEFT) + ") Move Left One Tile", box_width);
-    printCentered("(" + to_string(RIGHT) + ") Move Right One Tile", box_width);
+    // Print movement options centered (with character inputs instead of numbers)
+    printCentered("(" + string(1, UP) + ") Move Up One Tile", box_width);
+    printCentered("(" + string(1, DOWN) + ") Move Down One Tile", box_width);
+    printCentered("(" + string(1, LEFT) + ") Move Left One Tile", box_width);
+    printCentered("(" + string(1, RIGHT) + ") Move Right One Tile", box_width);
     printCentered("(" + to_string(INVENTORY) + ") Go to Inventory", box_width);
     printCentered("(" + to_string(QUIT) + ") Quit Game", box_width);
 
     // Print the bottom border
     cout << string(box_width, '-') << endl;
-
 }
 int getAttackOption(){
     int userChoice;
