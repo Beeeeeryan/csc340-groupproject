@@ -39,7 +39,7 @@ using namespace std;
 
     Grid* grid = new Grid();
     vector<Item> items = {Item("Potion", "Restores 50 HP", 1, 50), Item("Shield", "Protects from damage", 1, 1)};
-    Player player("Player", 100, 10, 5, 3, 0, items, grid); 
+    Player player("Player", 100, 10, 0, 3, 0, items, grid); 
     int initialPlayerHealth = player.getHealth();
     int initialPlayerArmor = player.getArmour();
 
