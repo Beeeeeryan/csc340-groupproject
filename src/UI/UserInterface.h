@@ -13,10 +13,10 @@ enum Actions {
 };
 
 enum Movement {
-    UP = 1,
-    DOWN = 2,
-    LEFT = 3,
-    RIGHT = 4,
+    UP = 'W',
+    DOWN = 'S',
+    LEFT = 'A',
+    RIGHT = 'D',
 };
 
 enum InvOptions{
