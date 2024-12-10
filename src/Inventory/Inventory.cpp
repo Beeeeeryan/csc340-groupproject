@@ -142,7 +142,7 @@ bool Inventory::useItem(Item& targetItem, Player& player )
           player.setArmour(targetItem.GetItemAffect());
           // Print the top border
           cout << string(border_width + 30, '-') << endl;
-          printCentered(player.getName() + " justed equipped" + targetItem.GetName(), border_width + 30);
+          printCentered(player.getName() + " justed equipped " + targetItem.GetName(), border_width + 30);
           return true;
         }
         //Other Item Implentations can go here in the future

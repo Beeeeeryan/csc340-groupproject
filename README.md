@@ -1,4 +1,21 @@
 
+---
+
+# CSC340 Group Project
+
+## Authors:
+
+- Bryan Bernardo - Beeeeeryan
+- Francis Gibson IV - FMGIV 
+- Tony Wu - ThatCodeByTony
+- Junhui Zhong - Swarm4Neuro
+
+
+## Summary
+
+This group project aims to create a basic emulation of a classic genre of a game in the video game industry, Tactical Role-Playing Games(TRPGS for short). The aim for creating this game application is to apply certain principles and ideas this group has learned throughout the semester. Contextually speaking, TRPGS are designed as turn-based combat, character development, and a linear progression type of game. Controlling a character on grid-based movement makes the game interactive for players.  Turned Base Combat allows players to take turns moving a character, executing certain actions based on strategy, resource management, and other factors. Lastly, a linear progression feature allows players to have a definitive goal which can include text based dialogue interactivity. Our hope for creating a simple prototype of a game is through utilizing inheritance, composition, and a OOP design while using the Linked List/Node Data Structure. 
+
+---
 
 ## Project Structure
 
@@ -19,22 +36,28 @@
 │   │   ├── Inventory.h              # Linked list for inventory items
 │   │   ├── Inventory.cpp            # Inventory management implementation
 │   │   ├── Item.h                   # Item class (represents an individual item)
-│   │   └── Item.cpp                 # Item class implementation
+│   │   ├── Item.cpp                 # Item class implementation
+│   │   ├── Node.h                   # Node class for inventory items
+│   │   └── Node.cpp                 # Node class implementation
 │   ├── /Map
 │   │   ├── Grid.h                   # Grid/map class header
-│   │   ├── Grid.cpp                 # Grid/map class functionality
-│   │   ├── Node.h                   # Node class for grid nodes
-│   │   └── Node.cpp                 # Node class implementation
+│   │   └── Grid.cpp                 # Grid/map class functionality
 │   ├── /UI
 │   │   ├── UserInterface.h          # UI class header
-│   │   ├── UserInterface.cpp        # UI class implementation
-|   └── main.cpp                     # Main entry point of the program, contains the unit tests
+│   │   └── UserInterface.cpp        # UI class implementation
+│   ├── /UnitTests
+│   │   ├── UnitTests.h              # Header for unit tests
+│   │   └── UnitTests.cpp            # Implementation for unit tests
+│   └── main.cpp                     # Main entry point of the program, contains the unit tests
 ├── .vscode                          # VS Code configuration files
 │   ├── tasks.json                   # Task configuration for building the project
 │   ├── c_cpp_properties.json        # IntelliSense and includes for C++
 │   ├── launch.json                  # Debugger configuration
 │   └── settings.json                # VS Code settings
+├── .gitignore                       # Git ignore file
+├── main                             # Compiled executable
 ├── README.md                        # Project documentation or notes
+
 ```
 
 ---
@@ -52,10 +75,7 @@
       - Search for and install **C/C++** in the Extensions panel of VS Code.
 
 2. **Create/Update Configuration Files**:
-   - In the .vscode folder, create or update the jsons with the following:
-
-   - **`tasks.json`**: 
-     - For building the project using `g++` with the necessary paths.
+   - In the `.vscode` folder, create or update the JSONs with the following configurations:
 
    ### `tasks.json`
 
@@ -73,6 +93,7 @@
                    "-I", "${workspaceFolder}/src/Map",
                    "-I", "${workspaceFolder}/src/UI",
                    "-I", "${workspaceFolder}/src/Inventory",
+                   "-I", "${workspaceFolder}/src/UnitTests",
                    "${workspaceFolder}/src/main.cpp",
                    "${workspaceFolder}/src/Character/Character.cpp",
                    "${workspaceFolder}/src/Character/Player.cpp",
@@ -82,6 +103,8 @@
                    "${workspaceFolder}/src/UI/UserInterface.cpp",
                    "${workspaceFolder}/src/Inventory/Item.cpp",
                    "${workspaceFolder}/src/Inventory/Inventory.cpp",
+                   "${workspaceFolder}/src/Inventory/Node.cpp", 
+                   "${workspaceFolder}/src/UnitTests/UnitTests.cpp",
                    "-o",
                    "${workspaceFolder}/main"
                ],
@@ -95,11 +118,6 @@
        ]
    }
    ```
-
-
-   - **`c_cpp_properties.json`**: 
-     - IntelliSense and include path settings for your C++ files.
-
 
    ### `c_cpp_properties.json`
 
@@ -129,9 +147,6 @@
        ]
    }
    ```
-
-   - **`launch.json`**: 
-     - Debug configuration for running your program with `gdb`.
 
    ### `launch.json`
 
@@ -168,9 +183,6 @@
    }
    ```
 
-   - **`settings.json`**: 
-     - Custom settings for the C++ compiler and IntelliSense.
-
    ### `settings.json`
 
    ```json
@@ -190,8 +202,6 @@
        "C_Cpp_Runner.msvcBatchPath": ""
    }
    ```
-
----
 
 3. **Build the Program**:
    - Press `Ctrl+Shift+B` or go to **Terminal > Run Build Task**.
@@ -297,13 +307,14 @@ getAttackOption();                         // Gets the user's choice for attack 
 getInventoryOption();                      // Gets the user's inventory option choice (Getter/Method)
 printCentered(const string& text, int box_width); // Prints text centered within a box (Method)
 ```
+
 ---
 
 ### **Inheritance:**
 
 1. **Player** and **Enemy**:
    - Both **inherit** from **Character** (Abstract class).
-   - **Character** serves as a base class, providing common properties and methods (e.g., `attack()`, `takeDamage()`, `move()`).
+   - **Character** serves as a base class, providing common properties and methods (e.g., `std::string name`, `int health`, `move()`).
 
 ---
 
@@ -319,7 +330,6 @@ printCentered(const string& text, int box_width); // Prints text centered within
 
 3. **Inventory**:
    - **Has** `Node` objects.
-   - **Each Node has** an `Item`.
 
 4. **Node**:
    - **Has** an `Item`.
@@ -329,8 +339,8 @@ printCentered(const string& text, int box_width); // Prints text centered within
 ### **Communication Between Classes:**
 
 1. **Player and Grid/Enemy**:
-   - **Player** communicates with **Grid** to set and retrieve its position using methods like `setPlayerPosition()` and `getPlayerPosition()`.
-   - **Player** and **Enemy** also interact during combat using methods like `attack()`, `takeDamage()`, and `isAlive()`. Both **Player** and **Enemy** rely on the **Grid** to manage their positions.
+   - **Player** and **Enemy** communicate with **Grid** to set and retrieve their positions using methods like `setPlayerPosition()` and `getEnemyPosition()`.
+
 
 2. **Player and Inventory**:
    - **Player** communicates with **Inventory** to manage items using methods like `addItemToInventory()`, `removeItemFromInventory()`, `displayInventory()`, and `sortInventory()`.
@@ -348,6 +358,23 @@ printCentered(const string& text, int box_width); // Prints text centered within
 1. **Player and Enemy**:
    - **Player** and **Enemy** **inherit** from **Character**, allowing them to be treated as **Character** objects. Methods like `attack()`, `takeDamage()`, and `move()` are **overridden** in both **Player** and **Enemy**
 
---- 
+---
 
+### **Inventory Class Functions:**
+
+- **`sortItems()`**: 
+   - This function sorts the inventory items alphabetically.
+   
+   Example:
+   ```cpp
+   Inventory.sortItems();  // Sorts items in the inventory alphabetically by name
+   ```
+
+- **`removeItem(itemName)`**:
+   - This function involves traversing the linked list of inventory nodes, finding the item by name, and deleting the corresponding node.
+   
+   Example:
+   ```cpp
+   Inventory.removeItem("Health Potion");  // Removes the "Health Potion" from the inventory
+   ```
 
