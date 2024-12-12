@@ -48,111 +48,6 @@ int getMenuChoice() {
     return userInput;
 }
 
-void unitTest() {
-    Grid* grid = new Grid ();
-    string playerName = "Player";
-    string enemyName = "Slime";
-    // Create some items
-    Item potion("Potion", "Restores 50 HP", 3, 50);
-    Item sword("Sword", "A sharp blade adds 2 attack power", 1, 2);
-    Item shield("Shield", "Blocks 3 damage", 1, 3);
-    // Create a vector of items
-    vector<Item> items = {potion, sword, shield};
-
-    Player player1(playerName, 100, 12, 3, 3, 0, items, grid);
-    player1.displayInventory();
-    Enemy enemy(enemyName, 50, 5, 0, 3, grid);
-
-    
-    // Display player and enemy details
-    cout << "-------- Testing Player Class! --------" << endl;
-    cout << endl;
-    Position pos2 = player1.getPosition();
-    cout << "Welcome " << player1.getName() + "!" << endl;
-    cout << "Is " << player1.getName() << " alive? " << (player1.isAlive() ? "Yes" : "No") << endl;
-    cout << player1.getName() << " has " << player1.getHealth() << " health!" << endl;
-    cout << player1.getName() << " has " << player1.getAttackPower() << " attack power!" << endl;
-    player1.attack();
-    cout << player1.getName() << " is positioned at (" << pos2.x << ", " << pos2.y << ")" << endl;
-    cout << endl;
-
-    cout << "-------- Testing Enemy Class! --------" << endl;
-    cout << endl;
-    Position pos3 = enemy.getPosition();
-    cout << "Welcome " << enemy.getName() + "!" << endl;
-    cout << "Is " << enemy.getName() << " alive? " << (enemy.isAlive() ? "Yes" : "No") << endl;
-    cout << enemy.getName() << " has " << enemy.getHealth() << " health!" << endl;
-    cout << enemy.getName() << " has " << enemy.getAttackPower() << " attack power!" << endl;
-    enemy.attack();
-    cout << enemy.getName() << " is positioned at (" << pos3.x << ", " << pos3.y << ")" << endl;
-    cout << endl;
-
-    // Display the initial grid
-    cout << "-------- Initial Grid State --------" << endl;
-    cout << endl;
-    grid->displayGrid();
-    cout << endl;
-
-
-    cout << "-------- Testing Player Movement! --------" << endl;
-    // grid.setPlayerPosition(player1.getPosition().x, player1.getPosition().y);
-    // grid.setEnemyPosition(enemy.getPosition().x, enemy.getPosition().y);
-
-    grid->displayGrid();
-    cout << endl;
-
-    //X Neg-Values move up in the grid, X Pos-Values move down
-    //Y-Neg Values move left in the grid, Y Pos-Values move right
-  
-    cout << "P moves up one Spaces, E moves left one spaces" << endl;
-    player1.move(-1, 0);
-    enemy.move(0, -1); 
-
-    grid->displayGrid();
-    cout << endl;
-
-    cout << "P moves up one Spaces, E moves left one spaces" << endl; //Should expect battle interface 
-    player1.move(-1, 0);
-    enemy.move(0, -1); 
-    grid->displayGrid();
-
-    
-    cout << endl;
-
-
-    cout << "P moves up one Spaces, E moves left one spaces" << endl;
-    player1.move(-1, 0);
-    enemy.move(0, -1); 
-
- 
-    cout << endl;
-    cout <<"Checking players inventory----------" << endl;
-    cout << endl;
-    cout <<"Player's inventory: "<< endl;
-    player1.displayInventory();
-    cout << endl;
-    cout <<"Checking add item in player inventory-------" << endl;
-    Item blackShield("Black Shield", "Shiny helmet blocks 5 damage", 1, 5);
-    player1.addItemToInventory(blackShield);
-    cout << endl;
-    cout << "Added checking player inventory-----" << endl;
-    player1.displayInventory();
-    cout << "Removing an item named Potion" << endl;
-    player1.removeItemFromInventory("Potion");
-    cout << "Displaying player inventory after deletion" << endl;
-    player1.displayInventory();
-    cout << "Test sorted inventory alphabetically" << endl;
-    player1.sortInventory();
-    player1.displayInventory();
- 
-
-
-    cout << "Unit Test Concluded!" <<endl;
-    cout << endl;
-
-
-}
-
 int choiceAfterStartGame() {
     int userInput;
     
@@ -179,7 +74,7 @@ void startGame() {
     string enemyName = "Slime";
     // Create some items
     Item potion("Potion", "Restores 50 HP", 3, 50);
-    Item sword("Sword", "A sharp blade adds 2 attack power", 1, 2);
+    Item sword("Sword", "A sharp blade does 20 attack power", 1, 20);
     Item shield("Wooden Shield", "Blocks 4 damage", 1, 4); //type of armour
     // Create a vector of items
     vector<Item> items = {potion, sword, shield};
@@ -255,7 +150,6 @@ void startGame() {
                 srand(time(0));
                 int x = getRandomValue(0, 7);
                 int y = getRandomValue(0, 7);
-                cout << x << y << endl;
                 //clear enemygrid position (bug an extra enemy will spawn)
                 grid->clearPosition(enemy.getPositionX(), enemy.getPositionY());
                 // Update the enemy's position
@@ -271,50 +165,6 @@ void startGame() {
 
     } while (choice != QUIT);
     
-
- /*
-
-   do {
-        if (choice == ATTACK) {
-            player.attack();
-            enemy.takeDamage(player.attack());
-            cout << player.getName() << " attacks with " << player.getAttackPower() << " attack power!" << endl;
-            cout << "Enemy health: " << enemy.getHealth() << endl;
-            if (enemy.getHealth() == 0) {
-                cout << "Enemy defeated!" << endl;
-                break;
-            }
-            enemy.attack();
-            player.takeDamage(enemy.attack());
-            cout << enemy.getName() << " attacks with " << enemy.getAttackPower() << " attack power!" << endl;
-            cout << "Player health: " << player.getHealth() << endl;
-            if (player.getHealth() == 0) {
-                cout << "Player defeated!" << endl;
-                break;
-            }
-        } else {
-            int specialDamage = player.getSpAttackPower();
-            cout << player.getName() << " attacks with " << specialDamage << " special attack power!" << endl;
-            enemy.takeDamage(specialDamage);
-            cout << "Enemy health: " << enemy.getHealth() << endl;
-            if (enemy.getHealth() == 0) {
-                cout << "Enemy defeated!" << endl;
-                break;
-            }
-            enemy.attack();
-            player.takeDamage(enemy.attack());
-            cout << enemy.getName() << " attacks with " << enemy.getAttackPower() << " attack power!" << endl;
-            cout << "Player health: " << player.getHealth() << endl;
-            if (player.getHealth() == 0) {
-                cout << "Player defeated!" << endl;
-                break;
-            }
-        } 
-        choice = choiceAfterStartGame();
-    } while (choice != QUIT);
- */ 
-
-
 }
 
 int main() {

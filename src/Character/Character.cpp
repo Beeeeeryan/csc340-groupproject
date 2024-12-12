@@ -64,6 +64,10 @@ int Character::getHealth() const {
 void Character::setHealth(int health){
     this->health = health;
 }
+void Character::setAttackPower(int newAttackPower)
+{
+    this->attackPower = newAttackPower;
+}
 
 int Character::attack() const {
     std::cout << name << " attacks with " << attackPower << " attack power!" << std::endl;

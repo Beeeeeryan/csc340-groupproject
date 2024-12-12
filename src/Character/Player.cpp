@@ -45,12 +45,15 @@ Player::~Player(){
 
 
 int Player::attack() const {
-    return attackPower;  // Return the attack power (int)
+    return getAttackPower();  // Return the attack power (int)(updated)
 }
 
-int Player::getSpAttackPower() const {
+int Player::getSpAttackPower() {
+    int playerAttackPower  = getAttackPower();
+    specialAttack.setSpAttackPower(playerAttackPower);
     return specialAttack.getSpAttackPower();  // Return the special attack power (int)
 }
+
 
 void Player::setEnemyCounter(int newEnemyCounter){
     this->enemyCounter = newEnemyCounter;

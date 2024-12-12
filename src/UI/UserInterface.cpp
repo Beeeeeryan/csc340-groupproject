@@ -31,10 +31,10 @@ Item getRandomItem() {
     Item("Potion", "Restores 50 HP", 1, 50),
     Item("Mana Potion", "Restores 30 MP", 1, 30),
     Item("Gold Coin", "A shiny gold coin", 10, 0),
-    Item("Magic Scroll", "Contains an ancient spell", 1, 0),
-    Item("Magic Scroll", "Contains an ancient spell", 1 ,0),
-    Item("Sword", "A sturdy weapon with extra 3 damage", 1, 3),
-    Item("Diamond Shield", "Provides extra  7 defense in battle", 1, 7)
+    Item("Magic Scroll", "Increases attack by 5", 1, 5),
+    Item("Magic Scroll", "Increases attack by 5", 1 ,5),
+    Item("Golden Sword", "A sturdy weapon that does 15 damage", 1, 15),
+    Item("Diamond Shield", "Blocks 7 damage in battle", 1, 7)
   };
 
   // Randomly select an item from the vector
@@ -265,12 +265,12 @@ void displayBattleLog(Player &player, Enemy &enemy){
         if(!player.isAlive())
         {
           displayLossGame();
-        }else if (!enemy.isAlive() && player.getEnemyCounter() != 8) //Hard Coded for the player to defeat 3 enemies
+        }else if (!enemy.isAlive() && player.getEnemyCounter() != 4) //Hard Coded for the player to defeat 3 enemies
         {
           //Increase the enemy counter
           int newCounter = player.getEnemyCounter() + 1;
           player.setEnemyCounter(newCounter);
-        if(player.getEnemyCounter() == 8)
+        if(player.getEnemyCounter() == 4)
         {
           displayEndGame();
           return;

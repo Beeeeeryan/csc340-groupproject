@@ -68,7 +68,7 @@ void Inventory::removeItem(const string& itemName){
   }
 
   if(current == nullptr){
-    cout << "Item not found.";
+    printCentered( current->getData().GetName() + " not found.", border_width + 30);
     return;
   }
     // If the item amount is greater than 1, just decrement the count
@@ -88,7 +88,7 @@ void Inventory::removeItem(const string& itemName){
 
   //Free memory
   delete current;
-  cout << itemName << " removed from inventory." << endl;
+  printCentered( current->getData().GetName() + " removed from inventory.", border_width + 30);
 
 }
 
@@ -145,6 +145,26 @@ bool Inventory::useItem(Item& targetItem, Player& player )
           printCentered(player.getName() + " justed equipped " + targetItem.GetName(), border_width + 30);
           return true;
         }
+        if(targetItem.GetName().find("Scroll")!= string::npos)
+        {
+          int updatedAttackPower  = player.getAttackPower() + targetItem.GetItemAffect();
+          player.setAttackPower(updatedAttackPower);
+          cout << string(border_width + 30, '-') << endl;
+          printCentered(player.getName() + " justed used a " + targetItem.GetName(), border_width + 30);
+          printCentered(targetItem.GetDescription(), border_width + 30);
+          //Delete the item after using
+          player.removeItemFromInventory(targetItem.GetName());
+          return true;
+        }
+        if(targetItem.GetName().find("Sword") != string::npos)
+        {
+          player.setAttackPower(targetItem.GetItemAffect());
+
+          cout << string(border_width + 30, '-') << endl;
+          printCentered(player.getName() + " justed equipped " + targetItem.GetName(), border_width + 30);
+          printCentered(targetItem.GetDescription(), border_width + 30);
+          return true;
+        }
         //Other Item Implentations can go here in the future
       }
         // Move to the next node
@@ -158,7 +178,6 @@ bool Inventory::useItem(Item& targetItem, Player& player )
     //Remove the item
 
 
-    //Return true or false depending if use successfully
 
   return false;
 }

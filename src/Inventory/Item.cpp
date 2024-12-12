@@ -5,7 +5,7 @@ using namespace std;
 
 Item::Item(){
   ItemName = "Unknown";
-  ItemName = "No description available";
+  ItemDescription = "No description available";
   ItemAmount = 0;
   ItemAffect = 0;
 }

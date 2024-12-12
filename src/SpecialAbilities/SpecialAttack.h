@@ -12,7 +12,8 @@ private:
 public:
     SpecialAttack(); //Default constructor
     SpecialAttack(int attackPower);     // Constructor accepts attackPower
-    int getSpAttackPower() const;       // Getter for attackPower
+    void setSpAttackPower(int newSpAttackPower);//Setter for spAttackPower
+    int getSpAttackPower();       // Getter for attackPower
 };
 
 #endif 

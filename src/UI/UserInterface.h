@@ -52,6 +52,7 @@ void printCentered(const std::string& text, int box_width);
 void printPlayerTurn(const std::string& playerName, int playerAttackPower, int playerHealth, int enemyHealth);
 void printEnemyTurn(const std::string& enemyName, int enemyAttackPower, int playerHealth, int enemyHealth);
 Enemy getRandomEnemy(Grid* grid);
+Item getRandomItem();
 
 
 #endif
